@@ -9,7 +9,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiHeader, ApiHeaders, ApiTags } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { sign } from 'jsonwebtoken';
 import { ConfigService } from '../../configs/configs.service';
@@ -18,6 +18,10 @@ import { CreateUserDto, LoginWithEmailPasswordDto } from './models/users.dto';
 
 @Controller('users')
 @ApiTags('Users')
+@ApiHeader({
+  name: 'token',
+  description: 'Custom header',
+})
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
@@ -85,6 +89,7 @@ export class UsersController {
   }
 
   @Get('me/info')
+  @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @UsePipes(new ValidationPipe())
   async findOne(@Request() { user }) {

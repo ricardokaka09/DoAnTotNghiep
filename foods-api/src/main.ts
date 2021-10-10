@@ -14,6 +14,7 @@ async function bootstrap() {
     .setDescription('The Flash Buy Apis')
     .setVersion('1.0')
     .addTag('Flash Buy Apis')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
