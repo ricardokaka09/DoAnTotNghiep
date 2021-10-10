@@ -16,16 +16,17 @@ export class LocalPasswordStrategy extends PassportStrategy(
     });
   }
 
-  async validate(email: string, password: string): Promise<any> {
+  async validate(email: string, password: string) {
     const user = await this.usersService.getCurrentUserCredentials(
       { email },
-      false,
+      true,
     );
+
     if (!user) {
       throw new UnauthorizedException('Email or password are incorrect');
     }
 
-    const isValidPassword = compare(password, user.password);
+    const isValidPassword = await compare(password, user.password);
     if (!isValidPassword) {
       throw new UnauthorizedException('Email or password are incorrect');
     }

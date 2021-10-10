@@ -14,6 +14,7 @@ import { UsersService } from './users.service';
 import { sign } from 'jsonwebtoken';
 import { ConfigService } from '../../configs/configs.service';
 import { UserCombinedService } from './user.combined.service';
+import { CreateUserDto, LoginWithEmailPasswordDto } from './models/users.dto';
 
 @Controller('users')
 @ApiTags('Users')
@@ -25,7 +26,7 @@ export class UsersController {
   private readonly configService = new ConfigService();
 
   @Post('register')
-  async createUser(@Body() data) {
+  async createUser(@Body() data: CreateUserDto) {
     try {
       const newUser = await this.userCombinedService.createUser({
         ...data,
@@ -55,7 +56,10 @@ export class UsersController {
   @Post('login')
   @UseGuards(AuthGuard('local_password'))
   @UsePipes(new ValidationPipe())
-  async loginPage(@Request() { user }) {
+  async loginPage(
+    @Request() { user },
+    @Body() data: LoginWithEmailPasswordDto,
+  ) {
     try {
       const { userID, fullName, changePasswordAt, status } = user;
 
