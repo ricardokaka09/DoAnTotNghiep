@@ -4,7 +4,7 @@ export enum StatusUserAccesses {
 }
 
 export enum RolesUserAccesses {
-  CLIENT = 'CLIENT',
-  STORE_MANAGER = 'STORE_MANAGER',
-  STAFF_MANAGER = 'STAFF_MANAGER',
+  CLIENT = 3,
+  STORE_MANAGER = 2,
+  STAFF_MANAGER = 1,
 }

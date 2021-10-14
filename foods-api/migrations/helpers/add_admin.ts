@@ -45,7 +45,7 @@ export const createAdmin = async (email, password) => {
 
     await userAccessesService.createOne({
       userID: newAdmin.userID,
-      roleName: 'ADMIN',
+      roleName: 0,
       status: StatusUserAccesses.ACCEPTED,
     });
 

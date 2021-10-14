@@ -18,10 +18,6 @@ import { CreateUserDto, LoginWithEmailPasswordDto } from './models/users.dto';
 
 @Controller('users')
 @ApiTags('Users')
-@ApiHeader({
-  name: 'token',
-  description: 'Custom header',
-})
 export class UsersController {
   constructor(
     private readonly usersService: UsersService,
@@ -43,6 +39,10 @@ export class UsersController {
     }
   }
   @Post('/verifying')
+  @ApiHeader({
+    name: 'token',
+    description: 'Custom header',
+  })
   @UseGuards(AuthGuard('verifying'))
   async createUserVerified(@Request() { user }, @Body() data) {
     try {
