@@ -24,8 +24,8 @@ export class UserAccesses {
   @Column({ type: 'varchar', nullable: true })
   userID: string;
 
-  @Column({ type: 'varchar', nullable: false })
-  roleName: string;
+  @Column({ type: 'int', nullable: false })
+  roleName: number;
 
   @Column({ type: 'varchar', nullable: false })
   status: string;
