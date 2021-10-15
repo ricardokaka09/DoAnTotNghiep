@@ -1,5 +1,16 @@
 <template>
-  <div><Header /><Footer /><Sidebar /></div>
+  <div class="admin-layout">
+    <div class="layout-admin-sidebar">
+      <Sidebar @toggleSidebar="toggleSidebar" />
+    </div>
+    <div class="layout-admin-content">
+      <Header />
+      <div class="main" :class="{ active: isActive }">
+        <router-view :key="$route.fullPath"></router-view>
+      </div>
+      <Footer :isActive="isActive" />
+    </div>
+  </div>
 </template>
 
 <script>

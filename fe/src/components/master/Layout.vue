@@ -1,5 +1,16 @@
 <template>
-  <div><Header /><Footer /><Sidebar /></div>
+  <div class="layout-master">
+    <div class="layout-master-sidebar">
+      <Sidebar @toggleSidebar="toggleSidebar" />
+    </div>
+    <div class="layout-master-content">
+      <Header />
+      <div class="main" :class="{ active: isActive }">
+        <router-view :key="$route.fullPath"></router-view>
+      </div>
+      <Footer :isActive="isActive" />
+    </div>
+  </div>
 </template>
 
 <script>
@@ -13,10 +24,20 @@ export default {
     Footer,
     Sidebar,
   },
+  data() {
+    return {
+      isActive: false,
+    };
+  },
+  methods: {
+    toggleSidebar(data) {
+      this.isActive = data;
+    },
+  },
 };
 </script>
 
 <style lang="scss">
-// Import css slag
-@import "../../views/master/master.scss";
+// Import Main styles for this application
+@import "@/views/master/master.scss";
 </style>

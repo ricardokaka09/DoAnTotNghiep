@@ -1,9 +1,11 @@
 <template>
-  <div>Header</div>
+  <div>DashBoard</div>
 </template>
 
 <script>
 export default {
-  name: "Header",
+  name: "DashBoard",
 };
 </script>
+
+<style></style>
