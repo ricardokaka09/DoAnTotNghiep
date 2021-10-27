@@ -1,14 +1,7 @@
 <template>
   <div class="form-login">
-    <CRow class="h-100">
-      <CCol sm="5" class="h-100">
-        <div class="d-flex justify-content-center align-items-center h-100">
-          <img
-            class="img-fluid"
-            src="../../assets/img/login-img.png"
-            alt="login-img"
-          /></div></CCol
-      ><CCol sm="7" class="h-100"
+    <CRow class="h-100"
+      ><CCol sm="12" class="h-100"
         ><div
           class="
             form-main
@@ -19,7 +12,7 @@
             flex-column
           "
         >
-          <div class="title">Log in to your account</div>
+          <div class="title">Đăng nhập vào hệ thống</div>
           <div class="form w-100 px-4 py-4">
             <CInput
               class="form-input"
@@ -31,37 +24,31 @@
             />
             <CInput
               class="form-input"
-              label="Password"
+              label="Mật Khẩu"
               type="password"
-              placeholder="Password"
+              placeholder="Mật Khẩu"
               v-model="password"
               :isValid="isPasswordValid"
               :invalidFeedback="passwordFeedback"
             />
-            <div class="remember-form">
-              <input
-                v-model="remember_me"
-                type="checkbox"
-                name="remember"
-                id="remember"
-              />
-              <label class="ml-1" for="remember">Remember Password</label>
-            </div>
-          </div>
-          <div class="d-flex justify-content-center">
-            <CButton v-on:click.prevent="submitLogin()" :color="'info'">
-              Sign In
+
+            <CButton
+              v-on:click.prevent="submitLogin()"
+              :color="'success'"
+              class="w-100 my-2"
+            >
+              Đăng nhập
             </CButton>
           </div>
-          <div class="d-flex justify-content-center my-3">
+          <div class="d-flex justify-content-center">
             <p class="link-forgot mx-4">
               <router-link :to="{ name: 'forgot password' }"
-                >Forgot Password</router-link
+                >Quên Mật Khẩu</router-link
               >
             </p>
             <p class="link-create-member mx-4">
               <router-link :to="{ name: 'create member' }">
-                Create New Account
+                Đăng Ký Tài Khoản
               </router-link>
             </p>
           </div>

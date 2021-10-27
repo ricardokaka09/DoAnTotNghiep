@@ -46,7 +46,7 @@ function configRoutes() {
       ],
     },
     {
-      path: `/`,
+      path: `/:shopId/${Routes.ADMIN}`,
       component: LayoutAdmin,
       children: [
         {
@@ -71,7 +71,6 @@ function configRoutes() {
           component: Home,
           meta: {
             label: "home",
-            requiresAuth: true,
             userType: 3,
           },
         },

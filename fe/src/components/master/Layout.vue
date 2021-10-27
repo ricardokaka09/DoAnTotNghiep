@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-master">
+  <div class="master-layout">
     <div class="layout-master-sidebar">
       <Sidebar @toggleSidebar="toggleSidebar" />
     </div>

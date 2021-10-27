@@ -12,9 +12,17 @@ import "v-toaster/dist/v-toaster.css";
 import { ModelSelect } from "vue-search-select";
 import { freeSet } from "@coreui/icons";
 import Multiselect from "vue-multiselect";
+import {
+  FontAwesomeIcon,
+  FontAwesomeLayers,
+  FontAwesomeLayersText,
+} from "@fortawesome/vue-fontawesome";
 
+Vue.component("font-awesome-icon", FontAwesomeIcon);
 Vue.component("multiselect", Multiselect);
+Vue.component("font-awesome-layers", FontAwesomeLayers);
 Vue.component("model-select", ModelSelect);
+Vue.component("font-awesome-layers-text", FontAwesomeLayersText);
 
 library.add(fab);
 library.add(fas);

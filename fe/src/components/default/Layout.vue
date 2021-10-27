@@ -1,5 +1,11 @@
 <template>
-  <div><Header /><Footer /></div>
+  <div class="layout-default">
+    <Header />
+    <div class="content">
+      <router-view :key="$route.fullPath"></router-view>
+    </div>
+    <Footer />
+  </div>
 </template>
 
 <script>
