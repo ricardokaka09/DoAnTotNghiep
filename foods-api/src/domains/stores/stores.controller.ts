@@ -58,7 +58,6 @@ export class StoresController {
       }
 
       await this.storesCombinedService.acceptStoreOfRegister({
-        query: { storeID },
         data: { ...store, status: StoreStatus.VERIFIED },
         user,
       });
