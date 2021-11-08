@@ -1,5 +1,4 @@
 import * as sgMail from '@sendgrid/mail';
-import { ConfigService } from 'src/configs/configs.service';
 interface SendEmail {
   mail: {
     to: string;
