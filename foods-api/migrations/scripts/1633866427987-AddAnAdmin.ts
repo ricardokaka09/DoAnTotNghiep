@@ -1,5 +1,5 @@
 import { admin } from '../constaints/admin';
-import { createAdmin } from 'migrations/helpers/add_admin';
+import { createAdmin } from '../helpers/add_admin';
 import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class AddAnAdmin1633866427987 implements MigrationInterface {
