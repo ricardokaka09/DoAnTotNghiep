@@ -6,16 +6,17 @@
     @update:show="(value) => $store.commit('set', ['sidebarShow', value])"
   >
     <CSidebarBrand class="d-md-down-none" to="/">
-      <img
+      <!-- <img
         src="@/assets/img/logo.png"
         :height="35"
         class="c-sidebar-brand-full"
-      />
+      /> -->
       <img
         src="@/assets/img/logo.png"
         :height="35"
         class="c-sidebar-brand-minimized"
       />
+      <span style="font-size: 20px">Flash Buy</span>
     </CSidebarBrand>
 
     <CRenderFunction flat :content-to-render="$options.nav" />
@@ -43,3 +44,11 @@ export default {
   methods: {},
 };
 </script>
+
+<style lang="scss">
+a {
+  &:hover {
+    text-decoration: none;
+  }
+}
+</style>

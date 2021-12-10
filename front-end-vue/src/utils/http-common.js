@@ -4,7 +4,7 @@ import { Constants } from "../utils/constants";
 
 const requestServer1 = axios.create({
   baseURL: Urls.BASE_URL_SERVER_1,
-  timeout: 10000,
+  timeout: 600000,
   headers: {
     "Content-type": "application/json",
   },

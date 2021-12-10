@@ -1,7 +1,6 @@
 export const Constants = {
-  USER_TYPE: "user_type",
+  ROLE: "role",
+  USER_INFO: "user_info",
   TOKEN: "token",
-  SHOP_ID: "shop_id",
-  SHOP_NAME: "shop_name",
-  LINKAPI: "http://localhost:3000/",
+  USER_ID: "user_id",
 };

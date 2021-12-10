@@ -25,6 +25,7 @@
     "japan-postal-code": "^0.2.0",
     "moment": "^2.29.1",
     "node-sass": "^6.0.1",
+    "sass": "^1.44.0",
     "sass-loader": "^10.2.0",
     "v-toaster": "^1.0.3",
     "vue": "^2.6.14",

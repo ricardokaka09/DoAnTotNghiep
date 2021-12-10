@@ -15,7 +15,7 @@
           >
             <div class="w-75 d-flex flex-column align-items-center">
               <div class="pb-3 d-flex justify-content-center">
-                <h4>Đăng nhập</h4>
+                <h4>Đăng ký thành viên</h4>
               </div>
               <div class="w-100 pl-xl-4 pr-xl-4 pl-0 pr-0">
                 <CInput
@@ -43,22 +43,29 @@
                   ></template>
                 </CInput>
               </div>
-              <div class="w-100 pl-xl-4 pr-xl-4 pl-0 pr-0 ml-5">
-                <CInputCheckbox v-model="isRemember" label="Ghi nhớ mật khẩu" />
+              <div class="w-100 pl-xl-4 pr-xl-4 pl-0 pr-0">
+                <CInput
+                  placeholder="Xác nhận Mật khẩu"
+                  v-model="confirmPassword"
+                  type="password"
+                  autocomplete="confirmPassword"
+                  class="form-input"
+                >
+                  <template #prepend-content
+                    ><b-icon icon="lock" aria-hidden="true"></b-icon
+                  ></template>
+                </CInput>
               </div>
               <div class="w-100 pl-xl-4 pr-xl-4 pl-0 pr-0 btn-submit">
                 <CButton class="px-4" type="submit" v-on:click="submitLogin()"
-                  >Đăng nhập</CButton
+                  >Đăng ký</CButton
                 >
               </div>
-              <div class="w-100 pl-xl-4 pr-xl-4 pl-0 pr-0 btn-submit d-flex">
-                <div class="link-forgot mx-2">
-                  <router-link :to="{ name: 'register user' }">
-                    Đăng ký
-                  </router-link>
-                </div>
-                <div class="link-forgot mx-2">
-                  <a href="">Quên mật khẩu</a>
+              <div
+                class="w-100 pl-xl-4 pr-xl-4 pl-0 pr-0 btn-submit text-center"
+              >
+                <div class="link-forgot">
+                  <router-link :to="{ name: 'login' }"> Đăng Nhập </router-link>
                 </div>
               </div>
             </div>
@@ -75,13 +82,13 @@ import { Api } from "../../utils/http-common";
 import { Urls } from "../../utils/urls";
 import loginImg from "../../assets/img/login-img.png";
 export default {
-  name: "Login",
+  name: "RegisterUser",
   data() {
     return {
       email: "",
       password: "",
-      isRemember: false,
       loginImg: loginImg,
+      confirmPassword: "",
     };
   },
   created() {
@@ -99,23 +106,29 @@ export default {
   },
   methods: {
     submitLogin() {
-      const formLogin = {
+      const formData = {
         email: this.email,
         password: this.password,
       };
-      if (this.password !== "" && this.email !== "") {
-        // eslint-disable-next-line no-debugger
-        debugger;
+      if (this.email == "") {
+        this.$toaster.error("Vui lòng nhập email của bạn");
+      } else if (this.password == "") {
+        this.$toaster.error("Vui lòng nhập password của bạn");
+      } else if (this.confirmPassword == "") {
+        this.$toaster.error("Vui lòng nhập lại password của bạn");
+      } else if (this.confirmPassword !== this.password) {
+        this.$toaster.error("Password không khớp");
+      } else {
         Api.requestServer1
-          .post(`${Urls.USERS}/${Urls.LOGIN}`, formLogin)
+          .post(`${Urls.USERS}/${Urls.REGISTER}`, formData)
           .then((response) => {
             const { data } = response;
-            if (data.status === "ACTIVE" || data.status === "INACTIVE") {
-              const { accessToken } = data;
-              localStorage.setItem(Constants.TOKEN, accessToken);
-              this.getInfoUser();
+            console.log(data);
+            if (data === true) {
+              this.$router.push({ name: "login" });
+              this.$toaster.success("Bạn đã đăng ký thành công");
             } else {
-              this.$toaster.error(data.message);
+              this.$toaster.error("Đăng ký không thành công");
             }
           })
           .catch((error) => {
@@ -125,25 +138,7 @@ export default {
               console.log(error);
             }
           });
-      } else {
-        this.$toaster.error("Vui lòng nhập email và mật khẩu của bạn");
       }
-    },
-    getInfoUser() {
-      Api.requestServer1
-        .get(`${Urls.USERS}/me/info`)
-        .then((response) => {
-          const { data } = response;
-          localStorage.setItem(Constants.ROLE, data.access[0].roleName);
-          if (data.access[0].roleName === 0) {
-            this.$router.push({ name: "dashboard admin" });
-          } else if (data.access[0].roleName === 3) {
-            this.$router.push({ name: "home" });
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-        });
     },
   },
 };

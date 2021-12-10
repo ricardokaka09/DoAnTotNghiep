@@ -1,16 +1,18 @@
 import Vue from "vue";
 import Router from "vue-router";
 import { Routes } from "../utils/routes";
-import { Constants } from "../utils/constants";
+// import { Constants } from "../utils/constants";
 
 // Layout
 const LayoutAuth = () => import("@/components/auth/Layout");
 const LayoutAdmin = () => import("@/components/admin/Layout");
+const LayoutDefault = () => import("@/components/default/Layout");
 // Auth
 const Login = () => import("@/views/auth/Login");
+const RegisterUser = () => import("@/views/auth/RegisterUser");
 
 //User Admin
-const ListUser = () => import("@/views/admin/ListUser");
+const ListCategory = () => import("@/views/admin/ListCategory");
 const CreateUser = () => import("@/views/admin/CreateUser");
 const EditUser = () => import("@/views/admin/EditUser");
 const ListTopup = () => import("@/views/admin/ListTopup");
@@ -27,6 +29,10 @@ const Page500 = () => import("@/views/example/pages/Page500");
 const Register = () => import("@/views/example/pages/Register");
 const LoginExp = () => import("@/views/example/pages/Login");
 
+// Home
+const Home = () => import("@/views/default/Home");
+const ActiveAccount = () => import("@/views/default/ActiveAccount");
+
 Vue.use(Router);
 let router = new Router({
   mode: "history", // https://router.vuejs.org/api/#mode
@@ -39,16 +45,16 @@ function configRoutes() {
   return [
     {
       path: `/${Routes.ADMIN}`,
-      name: "Trang chủ",
+      name: "dashboard admin",
       redirect: `/${Routes.ADMIN}/${Routes.USER}`,
       component: LayoutAdmin,
       children: [
         {
           path: `/${Routes.ADMIN}/${Routes.USER}`,
           name: "List User",
-          component: ListUser,
+          component: ListCategory,
           meta: {
-            label: "Người dùng",
+            label: "Category",
             requiresAuth: true,
             role: 0,
           },
@@ -136,7 +142,25 @@ function configRoutes() {
       ],
     },
     {
-      path: "/",
+      path: `/`,
+      redirect: `/${Routes.HOME}`,
+      name: "layout default",
+      component: LayoutDefault,
+      children: [
+        {
+          path: `${Routes.HOME}`,
+          name: "home",
+          component: Home,
+        },
+        {
+          path: `${Routes.PAGES}/404`,
+          name: "page404",
+          component: Login,
+        },
+      ],
+    },
+    {
+      path: `/`,
       redirect: `/${Routes.LOGIN}`,
       name: "layout auth",
       component: LayoutAuth,
@@ -145,6 +169,16 @@ function configRoutes() {
           path: `${Routes.LOGIN}`,
           name: "login",
           component: Login,
+        },
+        {
+          path: `${Routes.REGISTER}/${Routes.USER}`,
+          name: "register user",
+          component: RegisterUser,
+        },
+        {
+          path: `companies/register/verify`,
+          name: "register user",
+          component: ActiveAccount,
         },
         {
           path: `${Routes.PAGES}/404`,
@@ -188,60 +222,60 @@ function configRoutes() {
   ];
 }
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    const token = localStorage.getItem(Constants.TOKEN);
-    if (token === null) {
-      next({
-        name: "login",
-        params: { nextUrl: to.fullPath },
-      });
-    } else {
-      const roleCheck = parseInt(localStorage.getItem(Constants.ROLE));
-      const { role } = to.meta;
-      if (from.name === Routes.LOGIN) {
-        next();
-      } else {
-        if (roleCheck > role) {
-          localStorage.removeItem(Constants.TOKEN);
-          localStorage.removeItem(Constants.ROLE);
-          next({
-            name: "login",
-            params: { nextUrl: to.fullPath },
-          });
-        } else {
-          next();
-        }
-      }
-    }
-  } else if (to.matched.some((record) => record.meta.guest)) {
-    if (localStorage.getItem(Constants.TOKEN) == null) {
-      next();
-    } else {
-      next();
-    }
-  } else {
-    // eslint-disable-next-line no-inner-declarations
-    function isValid() {
-      if (to.name !== null) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-    if (!isValid(to.params)) {
-      next("/pages/404");
-    } else {
-      next();
-    }
-  }
+// router.beforeEach((to, from, next) => {
+//   if (to.matched.some((record) => record.meta.requiresAuth)) {
+//     const token = localStorage.getItem(Constants.TOKEN);
+//     if (token === null) {
+//       next({
+//         name: "login",
+//         params: { nextUrl: to.fullPath },
+//       });
+//     } else {
+//       const roleCheck = parseInt(localStorage.getItem(Constants.ROLE));
+//       const { role } = to.meta;
+//       if (from.name === Routes.LOGIN) {
+//         next();
+//       } else {
+//         if (roleCheck > role) {
+//           localStorage.removeItem(Constants.TOKEN);
+//           localStorage.removeItem(Constants.ROLE);
+//           next({
+//             name: "login",
+//             params: { nextUrl: to.fullPath },
+//           });
+//         } else {
+//           next();
+//         }
+//       }
+//     }
+//   } else if (to.matched.some((record) => record.meta.guest)) {
+//     if (localStorage.getItem(Constants.TOKEN) == null) {
+//       next();
+//     } else {
+//       next();
+//     }
+//   } else {
+//     // eslint-disable-next-line no-inner-declarations
+//     function isValid() {
+//       if (to.name !== null) {
+//         return true;
+//       } else {
+//         return false;
+//       }
+//     }
+//     if (!isValid(to.params)) {
+//       next("/pages/404");
+//     } else {
+//       next();
+//     }
+//   }
 
-  // eslint-disable-next-line no-unused-vars
-  router.afterEach((to, from) => {
-    Vue.nextTick(() => {
-      document.title = to.meta.title || "Paracel Loyalty";
-    });
-  });
-});
+//   // eslint-disable-next-line no-unused-vars
+//   router.afterEach((to, from) => {
+//     Vue.nextTick(() => {
+//       document.title = to.meta.title || "Paracel Loyalty";
+//     });
+//   });
+// });
 
 export default router;

@@ -1,5 +1,5 @@
 <template>
-  <div class="default-layout">
+  <div class="layout-default">
     <Header />
     <div class="content">
       <router-view :key="$route.fullPath"></router-view>
@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import Footer from "./Footer";
 import Header from "./Header";
+import Footer from "./Footer";
 export default {
   name: "Layout",
   components: {
@@ -19,7 +19,10 @@ export default {
   },
 };
 </script>
+
 <style lang="scss">
-// Import Main styles for this application
-@import "../../views/default/Default.scss";
+.content {
+  background: white;
+  min-height: 100vh;
+}
 </style>
