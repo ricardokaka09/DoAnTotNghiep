@@ -1,0 +1,221 @@
+//auth-layout
+.auth-layout{
+  background: linear-gradient(72.8deg, #22c1c3 0%, #fdbb2d 99.49%);
+  min-height: 100vh;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  padding: 78px 0;
+  box-sizing: border-box;
+  //login-form
+  .auth-form{
+    background-color: #fff;
+    border-radius: 15px;
+    height: 500px;
+    .form-login{
+      padding: 10px 0 20px;
+      .logo{
+        img{
+          max-width: 222px !important;       
+        }
+      }
+      .form-check{
+        .form-check-input{
+          margin-top: 0.4rem !important;
+        }
+      }
+      label{
+        font-size: 16px;
+        color: #333;
+      }
+      .form-title{
+        color: #72777c;
+        width: 100%;
+        text-align: center;
+        font-weight: bolder;
+        font-size: 24px;
+        margin-bottom: 25px;
+        margin-top: 25px;
+      }
+      .form-input{
+        .input-group {
+          .input-group-prepend {
+            .input-group-text {
+              border: unset;
+              background: #E7E7E7;
+              color: #333;
+              font-size: 16px;
+              padding-left: 25px;
+              border-top-left-radius: 25px;
+              border-bottom-left-radius: 25px;
+            }
+          }
+        }
+        input{
+          background: #E7E7E7;
+          border-top-right-radius: 25px;
+          border-bottom-right-radius: 25px;
+          font-size: 16px;
+          border: unset;
+          box-shadow: unset;
+        }
+      }
+      .alert{
+        text-align: center;
+      }
+      .login-sns{
+        .btn-common{
+          padding: 8px 0;
+          margin: 5px 0;
+          border: none;
+          border-radius: 5px;
+          color: white;
+          font-size: 15px;
+          width: 100%;
+          &:focus{
+            outline: none;
+          }
+          &:hover{
+            opacity: 0.8;
+          }
+        }
+        .btn-line{
+          background: #00b900;
+        }
+        .btn-amazon{
+          background: #F8AF2C;
+        }
+      }
+      .btn-submit{  
+        display: flex;
+        justify-content: center;
+        button{
+          border-radius: 25px;
+          font-size: 16px;
+          height: auto;
+          background: #56B847;
+          color: #fff;
+          border: none;
+          padding: 8px 0;
+          cursor: pointer;
+          text-align: center;
+          width: 100%;
+          font-weight: 600;
+          margin: 20px 0;
+          &:hover{
+            opacity: 0.8;
+          }
+        }
+      }
+      .link-forgot{
+        font-size: 16px;
+        color: #333;
+        margin: unset;
+        cursor: pointer;
+        a{
+          text-decoration: none;
+          color: #333 !important;
+          font-style: italic;
+        }
+      }
+    }
+    //create-form
+    .form-create{
+      padding: 10px 0 20px;
+      .logo{
+        img{
+          height: 90px;
+          width: 150px;        
+        }
+      }
+      .form-title{
+        color: #72777c;
+        width: 100%;
+        text-align: center;
+        font-weight: bolder;
+        font-size: 24px;
+        margin-bottom: 25px;
+        margin-top: 25px;
+      }
+      .form-input{
+        label{
+          font-size: 16px;
+          color: #72777c;
+          font-weight: bolder;
+        }
+        .input-group {
+          input{
+            background: #f2f2f2;
+            font-size: 16px;
+            padding: 10px 25px;  
+            border: 3px solid #aaa;
+            color: #777;
+            margin: 5px 0 20px;
+            font-size: 16px;
+            outline: none;
+            box-shadow: unset;
+            &:focus{
+              outline: none;
+              box-shadow: unset;
+            }
+          }
+        }
+      }
+      .btn-submit{  
+        display: flex;
+        justify-content: center;
+        button{
+          line-height: 30px;
+          height: auto;
+          background: #FEFE00;
+          color: #4a4a4a;
+          border: none;
+          padding: 8px 0;
+          font-size: 16px;
+          cursor: pointer;
+          border-radius: 4px;
+          text-align: center;
+          width: 60%;
+          font-weight: 600;
+          border-radius: 10px;
+          margin-bottom: 20px;
+        }
+      }
+      .btn-common{
+        padding: 8px 0;
+          margin: 5px 0;
+          border: none;
+          border-radius: 5px;
+          color: white;
+          font-size: 15px;
+          width: 100%;
+          &:focus{
+            outline: none;
+          }
+          &:hover{
+            opacity: 0.8;
+          }
+      }
+      .btn-line{
+        background: #00b900;
+      }
+      .btn-amazon{
+        background: #F8AF2C;
+      }
+      .link-login{
+        font-size: 16px;
+        color: #72777c;
+        font-weight: bolder;
+        margin: unset;
+        cursor: pointer;
+        text-align: center;
+        margin-top: 30px;
+        a{
+          text-decoration: none;
+          color: #72777c !important;
+        }
+      }
+    }
+  }
+}
