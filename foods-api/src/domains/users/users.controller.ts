@@ -38,7 +38,7 @@ export class UsersController {
       throw error;
     }
   }
-  @Post('/verifying')
+  @Get('/verifying')
   @ApiHeader({
     name: 'token',
     description: 'Custom header',
@@ -88,7 +88,7 @@ export class UsersController {
     }
   }
 
-  @Get('me/info')
+  @Get('me')
   @ApiBearerAuth()
   @UseGuards(AuthGuard('jwt'))
   @UsePipes(new ValidationPipe())
