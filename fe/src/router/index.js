@@ -1,21 +1,31 @@
 import Vue from "vue";
 import Router from "vue-router";
 import { Routes } from "../utils/routes";
-import { Constants } from "../utils/constants";
+// import { Constants } from "../utils/constants";
 
 // Layout
 const LayoutAuth = () => import("@/components/auth/Layout");
 const LayoutAdmin = () => import("@/components/admin/Layout");
-const LayoutMaster = () => import("@/components/master/Layout");
-const LayoutHome = () => import("@/components/default/Layout");
 // Auth
 const Login = () => import("@/views/auth/Login");
-//Master
-const DashBoardMaster = () => import("@/views/master/DashBoard");
-//Admin
-const DashBoardAdmin = () => import("@/views/admin/DashBoard");
-//Home
-const Home = () => import("@/views/default/Home");
+
+// //User Admin
+// const ListUser = () => import("@/views/admin/ListUser");
+// const CreateUser = () => import("@/views/admin/CreateUser");
+// const EditUser = () => import("@/views/admin/EditUser");
+// const ListTopup = () => import("@/views/admin/ListTopup");
+// const ListTransfer = () => import("@/views/admin/ListTransfer");
+// const ListReward = () => import("@/views/admin/ListReward");
+// const ListNews = () => import("@/views/admin/ListNews");
+// const ListNotification = () => import("@/views/admin/ListNotification");
+// const CreateTopup = () => import("@/views/admin/CreateTopUp");
+// const CreateReward = () => import("@/views/admin/CreateReward");
+
+// Views - Pages
+// const Page404 = () => import("@/views/example/pages/Page404");
+// const Page500 = () => import("@/views/example/pages/Page500");
+// const Register = () => import("@/views/example/pages/Register");
+// const LoginExp = () => import("@/views/example/pages/Login");
 
 Vue.use(Router);
 let router = new Router({
@@ -28,65 +38,109 @@ let router = new Router({
 function configRoutes() {
   return [
     {
-      path: "/master",
-      name: "layout master",
-      redirect: `${Routes.DASHBOARD}`,
-      component: LayoutMaster,
-      children: [
-        {
-          path: `/${Routes.DASHBOARD}`,
-          name: "dashboard master",
-          component: DashBoardMaster,
-          meta: {
-            label: "dashboard master",
-            requiresAuth: true,
-            userType: 0,
-          },
-        },
-      ],
-    },
-    {
-      path: `/:shopId/${Routes.ADMIN}`,
+      path: `/${Routes.ADMIN}`,
+      name: "Trang chủ",
+      redirect: `/${Routes.ADMIN}/${Routes.USER}`,
       component: LayoutAdmin,
       children: [
-        {
-          path: `/:shopId/${Routes.ADMIN}`,
-          name: "dashboard admin",
-          component: DashBoardAdmin,
-          meta: {
-            label: "dashboard admin",
-            requiresAuth: true,
-            userType: 2,
-          },
-        },
+        // {
+        //   path: `/${Routes.ADMIN}/${Routes.USER}`,
+        //   name: "List User",
+        //   component: ListUser,
+        //   meta: {
+        //     label: "Người dùng",
+        //     requiresAuth: true,
+        //     role: 0,
+        //   },
+        // },
+        // {
+        //   path: `/${Routes.ADMIN}/${Routes.USER}/${Routes.CREATE}`,
+        //   name: "Create User",
+        //   component: CreateUser,
+        // },
+        // {
+        //   path: `/${Routes.ADMIN}/${Routes.USER}/${Routes.EDIT}/:id`,
+        //   name: "Edit User",
+        //   component: EditUser,
+        // },
+        // {
+        //   path: `${Routes.TOPUP}`,
+        //   name: "Top Up",
+        //   component: ListTopup,
+        //   meta: {
+        //     label: "Nạp tiền",
+        //     requiresAuth: true,
+        //     role: 0,
+        //   },
+        // },
+        // {
+        //   path: "transfer",
+        //   name: "Transfer Point",
+        //   component: ListTransfer,
+        //   meta: {
+        //     label: "Chuyển tiền",
+        //     requiresAuth: true,
+        //     role: 0,
+        //   },
+        // },
+        // {
+        //   path: `${Routes.REWARD}`,
+        //   name: "Reward",
+        //   component: ListReward,
+        //   meta: {
+        //     label: "Thưởng",
+        //     requiresAuth: true,
+        //     role: 0,
+        //   },
+        // },
+        // {
+        //   path: "Notification",
+        //   name: "Notification",
+        //   component: ListNotification,
+        //   meta: {
+        //     label: "Thông báo",
+        //     requiresAuth: true,
+        //     role: 0,
+        //   },
+        // },
+        // {
+        //   path: "news",
+        //   name: "News",
+        //   component: ListNews,
+        //   meta: {
+        //     label: "Tin tức",
+        //     requiresAuth: true,
+        //     role: 0,
+        //   },
+        // },
+        // {
+        //   path: `${Routes.TOPUP}/${Routes.CREATE}`,
+        //   name: "create topup",
+        //   component: CreateTopup,
+        //   meta: {
+        //     label: "Nạp tiền",
+        //     requiresAuth: true,
+        //     role: 0,
+        //   },
+        // },
+        // {
+        //   path: `${Routes.REWARD}/${Routes.CREATE}`,
+        //   name: "create reward",
+        //   component: CreateReward,
+        //   meta: {
+        //     label: "Tạo Thưởng",
+        //     requiresAuth: true,
+        //     role: 0,
+        //   },
+        // },
       ],
     },
     {
       path: "/",
-      component: LayoutHome,
-      children: [
-        {
-          path: `${Routes.HOME}`,
-          name: "home",
-          component: Home,
-          meta: {
-            label: "home",
-            userType: 3,
-          },
-        },
-      ],
-    },
-    {
-      path: "/",
-      redirect: `${Routes.LOGIN}`,
+      redirect: `/${Routes.LOGIN}`,
       name: "layout auth",
       component: LayoutAuth,
       children: [
-        {
-          path: `:id/${Routes.LOGIN}`,
-          name: "login shop",
-          component: Login,
-        },
         {
           path: `${Routes.LOGIN}`,
           name: "login",
@@ -99,64 +153,95 @@ function configRoutes() {
         },
       ],
     },
+    {
+      path: "/pages",
+      redirect: "/pages/404",
+      name: "Pages",
+      component: {
+        render(c) {
+          return c("router-view");
+        },
+      },
+      children: [
+        // {
+        //   path: "404",
+        //   name: "Page404",
+        //   component: Page404,
+        // },
+        // {
+        //   path: "500",
+        //   name: "Page500",
+        //   component: Page500,
+        // },
+        // {
+        //   path: "login",
+        //   name: "Login",
+        //   component: LoginExp,
+        // },
+        // {
+        //   path: "register",
+        //   name: "Register",
+        //   component: Register,
+        // },
+      ],
+    },
   ];
 }
 
-router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
-    const token = localStorage.getItem(Constants.TOKEN);
-    if (token === null) {
-      next({
-        name: "login",
-        params: { nextUrl: to.fullPath },
-      });
-    } else {
-      const userTypeCheck = parseInt(localStorage.getItem(Constants.USER_TYPE));
-      const { userType } = to.meta;
+// router.beforeEach((to, from, next) => {
+//   if (to.matched.some((record) => record.meta.requiresAuth)) {
+//     const token = localStorage.getItem(Constants.TOKEN);
+//     if (token === null) {
+//       next({
+//         name: "login",
+//         params: { nextUrl: to.fullPath },
+//       });
+//     } else {
+//       const roleCheck = parseInt(localStorage.getItem(Constants.ROLE));
+//       const { role } = to.meta;
+//       if (from.name === Routes.LOGIN) {
+//         next();
+//       } else {
+//         if (roleCheck > role) {
+//           localStorage.removeItem(Constants.TOKEN);
+//           localStorage.removeItem(Constants.ROLE);
+//           next({
+//             name: "login",
+//             params: { nextUrl: to.fullPath },
+//           });
+//         } else {
+//           next();
+//         }
+//       }
+//     }
+//   } else if (to.matched.some((record) => record.meta.guest)) {
+//     if (localStorage.getItem(Constants.TOKEN) == null) {
+//       next();
+//     } else {
+//       next();
+//     }
+//   } else {
+//     // eslint-disable-next-line no-inner-declarations
+//     function isValid() {
+//       if (to.name !== null) {
+//         return true;
+//       } else {
+//         return false;
+//       }
+//     }
+//     if (!isValid(to.params)) {
+//       next("/pages/404");
+//     } else {
+//       next();
+//     }
+//   }
 
-      if (from.name === Routes.LOGIN) {
-        next();
-      } else {
-        if (userTypeCheck > userType) {
-          localStorage.removeItem(Constants.TOKEN);
-          localStorage.removeItem(Constants.USER_TYPE);
-          next({
-            name: "login",
-            params: { nextUrl: to.fullPath },
-          });
-        } else {
-          next();
-        }
-      }
-    }
-  } else if (to.matched.some((record) => record.meta.guest)) {
-    if (localStorage.getItem(Constants.TOKEN) == null) {
-      next();
-    } else {
-      next();
-    }
-  } else {
-    // eslint-disable-next-line no-inner-declarations
-    function isValid() {
-      if (to.name !== null) {
-        return true;
-      } else {
-        return false;
-      }
-    }
-    if (!isValid(to.params)) {
-      next("/pages/404");
-    } else {
-      next();
-    }
-  }
-
-  // eslint-disable-next-line no-unused-vars
-  router.afterEach((to, from) => {
-    Vue.nextTick(() => {
-      document.title = to.meta.title || "CDEA";
-    });
-  });
-});
+//   // eslint-disable-next-line no-unused-vars
+//   router.afterEach((to, from) => {
+//     Vue.nextTick(() => {
+//       document.title = to.meta.title || "Flash Buy";
+//     });
+//   });
+// });
 
 export default router;

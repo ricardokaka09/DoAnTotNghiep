@@ -15,7 +15,7 @@
             </router-link>
           </div>
           <div class="link_shop mx-2">
-            <router-link :to="{ name: 'create store' }">
+            <router-link :to="{ name: 'register store' }">
               Đăng Ký Người Bán
             </router-link>
           </div>

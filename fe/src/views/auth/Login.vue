@@ -47,7 +47,7 @@
               >
             </p>
             <p class="link-create-member mx-4">
-              <router-link :to="{ name: 'create member' }">
+              <router-link :to="{ name: 'register user' }">
                 Đăng Ký Tài Khoản
               </router-link>
             </p>
@@ -91,7 +91,7 @@ export default {
       };
       if (this.password !== "" || this.email !== "") {
         Api.requestServer1
-          .post(`http://localhost:3000/users/login`, formLogin)
+          .post(`${process.env.VUE_APP_ROOT_API}/users/login`, formLogin)
           .then((response) => {
             const { data } = response;
             // eslint-disable-next-line no-debugger
@@ -113,7 +113,7 @@ export default {
     },
     getInfoUser() {
       Api.requestServer1
-        .get(`http://localhost:3000/users/me/info`)
+        .get(`${process.env.VUE_APP_ROOT_API}/users/me/info`)
         .then((response) => {
           const { data } = response;
           // eslint-disable-next-line no-debugger
