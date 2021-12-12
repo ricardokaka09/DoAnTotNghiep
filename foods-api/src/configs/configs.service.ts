@@ -1,8 +1,6 @@
 import * as dotenv from 'dotenv';
 import * as Joi from 'joi';
 import * as fs from 'fs';
-import { join } from 'path/posix';
-
 export interface EnvConfig {
   [key: string]: string;
 }

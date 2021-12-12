@@ -21,7 +21,6 @@ export class CreateStoresDto {
   address: string;
 
   @ApiPropertyOptional()
-  @IsOptional()
   @IsString()
   phoneNumber?: string;
 

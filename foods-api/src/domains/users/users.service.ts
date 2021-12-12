@@ -168,19 +168,19 @@ export class UsersService {
       if (!user?.userID) {
         return null;
       }
-      const access = await this.usersRepository.query(
+      const accesses = await this.usersRepository.query(
         `SELECT userAccessID, userID, storeID, 
         roleName, status, createdBy FROM user_accesses
         WHERE userID = ?`,
         [user.userID],
       );
-      if (!access) {
+      if (!accesses) {
         throw new NotFoundException('User not found');
       }
 
       return {
         ...user,
-        access,
+        accesses,
       };
     } catch (error) {
       return Promise.reject(error);

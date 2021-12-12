@@ -10,6 +10,8 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { scopes } from '../../constants/scopes';
+import { Scopes } from '../../middlewares/authz/authz.service';
 import { CreateStoresDto } from './models/stores.dto';
 import { StoreStatus } from './models/stores.schema';
 import { StoresCombinedService } from './stores.combined.service';
@@ -42,9 +44,10 @@ export class StoresController {
 
   @Post('/:storeID/accept')
   @ApiBearerAuth()
+  @UseGuards(new Scopes([scopes.ACCEPT_STORE]))
   @UseGuards(AuthGuard('jwt'))
   @UsePipes(new ValidationPipe())
-  async acceptStoreOfRegister(@Request() { user }, @Param() storeID) {
+  async acceptStoreOfRegister(@Request() { user }, @Param() { storeID }) {
     try {
       const store = await this.storesService.findOne({
         query: { storeID },
@@ -62,13 +65,13 @@ export class StoresController {
         user,
       });
 
-      const update = await this.storesService.updateOne({
-        data: { ...store, status: StoreStatus.VERIFIED },
-        user,
-        query: { storeID: store.storeID },
-      });
+      // const update = await this.storesService.updateOne({
+      //   data: { ...store, status: StoreStatus.VERIFIED },
+      //   user,
+      //   query: { storeID: store.storeID },
+      // });
 
-      return update;
+      return true;
     } catch (error) {
       return Promise.reject(error);
     }
