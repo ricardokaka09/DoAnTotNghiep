@@ -58,7 +58,7 @@ export default {
       imgCategory4: imgCategory4,
       imgCategory5: imgCategory5,
       settings: {
-        dots: true,
+        dots: false,
         infinite: false,
         speed: 500,
         slidesToShow: 4,
@@ -95,33 +95,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.categories__item {
-  height: 270px;
-  position: relative;
-}
-
-.categories__item h5 {
-  position: absolute;
-  left: 0;
-  width: 100%;
-  padding: 0 20px;
-  bottom: 20px;
-  text-align: center;
-}
-
-.categories__item h5 a {
-  font-size: 18px;
-  color: #1c1c1c;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  padding: 12px 0 10px;
-  background: #ffffff;
-  display: block;
-}
-.slick-list .slick-slide {
-  margin: 0 20px !important;
-}
-</style>

@@ -23,6 +23,6 @@ export default {
 <style lang="scss">
 .content {
   background: white;
-  min-height: 100vh;
+  min-height: calc(100vh - 600px);
 }
 </style>

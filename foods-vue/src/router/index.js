@@ -25,6 +25,7 @@ const LoginExp = () => import("@/views/example/pages/Login");
 const Home = () => import("@/views/default/Home");
 const ActiveAccount = () => import("@/views/default/ActiveAccount");
 const RegisterStore = () => import("@/views/default/RegisterStore");
+const LoginUser = () => import("@/views/default/Login");
 
 Vue.use(Router);
 let router = new Router({
@@ -93,16 +94,21 @@ function configRoutes() {
           name: "page404",
           component: Login,
         },
+        {
+          path: `${Routes.LOGIN}`,
+          name: "login user",
+          component: LoginUser,
+        },
       ],
     },
     {
       path: `/`,
-      redirect: `/${Routes.LOGIN}`,
+      redirect: `/${Routes.ADMIN}/${Routes.LOGIN}`,
       name: "layout auth",
       component: LayoutAuth,
       children: [
         {
-          path: `${Routes.LOGIN}`,
+          path: `${Routes.ADMIN}/${Routes.LOGIN}`,
           name: "login",
           component: Login,
         },

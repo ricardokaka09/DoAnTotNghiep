@@ -6,25 +6,41 @@
 @import "vue-search-select/dist/VueSearchSelect";
 @import "vue-multiselect/dist/vue-multiselect.min";
 
-
 // If you want to add something do it here
 @import "custom";
 
-.card-header:not(.content-center) > .c-icon:first-child {
-  margin-right: 0.1rem;
-  margin-top: 0.1rem;
-  vertical-align: top;
-  width: 1.2rem;
-  height: 1.2rem;
-  font-size: 1.2rem;
-}
+@import "mixins";
 
+@import "base";
+@import "header";
+@import "hero";
+@import "home-page";
+@import "breadcrumb";
+@import "sidebar";
+@import "shop-grid";
+@import "shop-details";
+@import "shoping-cart";
+@import "checkout";
+@import "blog";
+@import "blog-sidebar";
+@import "blog-details";
+@import "footer";
+@import "contact";
+@import "responsive";
+
+.card-header:not(.content-center) > .c-icon:first-child {
+	margin-right: 0.1rem;
+	margin-top: 0.1rem;
+	vertical-align: top;
+	width: 1.2rem;
+	height: 1.2rem;
+	font-size: 1.2rem;
+}
 html,
 body {
 	height: 100%;
 	-webkit-font-smoothing: antialiased;
 	font-smoothing: antialiased;
-  background-color: white;
 }
 
 h1,
@@ -86,7 +102,7 @@ a:hover,
 a:focus {
 	text-decoration: none;
 	outline: none;
-	color: #ffffff;
+	color: $white-color;
 }
 
 ul,
@@ -98,28 +114,27 @@ ol {
 /*---------------------
   Helper CSS
 -----------------------*/
-
 .section-title {
 	margin-bottom: 50px;
 	text-align: center;
-}
 
-.section-title h2 {
-	color: #1c1c1c;
-	font-weight: 700;
-	position: relative;
-}
+	h2 {
+		color: $normal-color;
+		font-weight: 700;
+		position: relative;
 
-.section-title h2:after {
-	position: absolute;
-	left: 0;
-	bottom: -15px;
-	right: 0;
-	height: 4px;
-	width: 80px;
-	background: #7fad39;
-	content: "";
-	margin: 0 auto;
+		&:after {
+			position: absolute;
+			left: 0;
+			bottom: -15px;
+			right: 0;
+			height: 4px;
+			width: 80px;
+			background: $primary-color;
+			content: "";
+			margin: 0 auto;
+		}
+	}
 }
 
 .set-bg {
@@ -147,31 +162,29 @@ ol {
 }
 
 /* buttons */
-
 .primary-btn {
 	display: inline-block;
 	font-size: 14px;
 	padding: 10px 28px 10px;
-	color: #ffffff;
+	color: $white-color;
 	text-transform: uppercase;
 	font-weight: 700;
-	background: #7fad39;
+	background: $primary-color;
 	letter-spacing: 2px;
 }
 
 .site-btn {
 	font-size: 14px;
-	color: #ffffff;
+	color: $white-color;
 	font-weight: 800;
 	text-transform: uppercase;
 	display: inline-block;
 	padding: 13px 30px 12px;
-	background: #7fad39;
+	background: $primary-color;
 	border: none;
 }
 
 /* Preloder */
-
 #preloder {
 	position: fixed;
 	width: 100%;
@@ -202,12 +215,14 @@ ol {
 		border: 4px solid #f44336;
 		border-left-color: transparent;
 	}
+
 	50% {
 		-webkit-transform: rotate(180deg);
 		transform: rotate(180deg);
 		border: 4px solid #673ab7;
 		border-left-color: transparent;
 	}
+
 	100% {
 		-webkit-transform: rotate(360deg);
 		transform: rotate(360deg);
@@ -222,24 +237,16 @@ ol {
 		border: 4px solid #f44336;
 		border-left-color: transparent;
 	}
+
 	50% {
 		-webkit-transform: rotate(180deg);
 		border: 4px solid #673ab7;
 		border-left-color: transparent;
 	}
+
 	100% {
 		-webkit-transform: rotate(360deg);
 		border: 4px solid #f44336;
 		border-left-color: transparent;
 	}
 }
-/*--------------------------------- Responsive Media Quaries -----------------------------*/
-
-@media only screen and (min-width: 1200px) {
-	.container {
-		max-width: 1170px;
-	}
-}
-
-/* Medium Device = 1200px */
-
