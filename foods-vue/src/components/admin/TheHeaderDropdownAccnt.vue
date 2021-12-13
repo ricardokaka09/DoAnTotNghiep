@@ -29,8 +29,6 @@
 
 <script>
 import { Constants } from "../../utils/constants";
-import { Api } from "../../utils/http-common";
-import { Urls } from "../../utils/urls";
 export default {
   name: "TheHeaderDropdownAccnt",
   data() {
@@ -38,25 +36,9 @@ export default {
   },
   methods: {
     logout() {
-      Api.requestServer1
-        .get(`${Urls.AUTH}/${Urls.LOGOUT}`)
-        .then((response) => {
-          const { data } = response;
-          if (data.success) {
-            localStorage.removeItem(Constants.TOKEN);
-            localStorage.removeItem(Constants.ROLE);
-            this.$router.push({ name: "login" });
-          } else {
-            this.$toaster.error(data.message);
-          }
-        })
-        .catch((error) => {
-          if (error.response) {
-            this.$toaster.error(error.response.data.message);
-          } else {
-            console.log(error);
-          }
-        });
+      localStorage.removeItem(Constants.TOKEN);
+      localStorage.removeItem(Constants.ROLE);
+      this.$router.push({ name: "login" });
     },
   },
 };

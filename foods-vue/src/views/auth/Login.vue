@@ -92,7 +92,7 @@ export default {
       const role = localStorage.getItem(Constants.ROLE);
       if (parseInt(role) === 0) {
         this.$router.push({ name: "dashboard admin" });
-      } else {
+      } else if (parseInt(role) === 3) {
         this.$router.push({ name: "home" });
       }
     }
@@ -134,16 +134,12 @@ export default {
         .get(`${Urls.USERS}/me`)
         .then((response) => {
           const { data } = response;
-          const dataUser = data.accesses.filter(
-            (item) => item.userID == data.userID
-          );
-          console.log("data user", dataUser);
-          console.log(dataUser.roleName);
-          localStorage.setItem(Constants.ROLE, dataUser.roleName);
-          if (dataUser.roleName === 0) {
-            this.$router.push({ name: "dashboard admin" });
-          } else if (dataUser.roleName === 3) {
+          if (data.status === "ACTIVE") {
+            localStorage.setItem(Constants.ROLE, 3);
             this.$router.push({ name: "home" });
+            this.$toaster.success("Đăng nhập thành công");
+          } else {
+            this.$toaster.error(data.message);
           }
         })
         .catch((error) => {
@@ -153,3 +149,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+.form-control {
+  padding-left: unset !important;
+}
+</style>
