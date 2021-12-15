@@ -239,6 +239,7 @@ export default {
               slidesToScroll: 3,
               infinite: true,
               dots: true,
+              arrows: false,
             },
           },
           {
@@ -247,6 +248,7 @@ export default {
               slidesToShow: 2,
               slidesToScroll: 2,
               initialSlide: 2,
+              arrows: false,
             },
           },
           {
@@ -254,6 +256,7 @@ export default {
             settings: {
               slidesToShow: 1,
               slidesToScroll: 1,
+              arrows: false,
             },
           },
         ],

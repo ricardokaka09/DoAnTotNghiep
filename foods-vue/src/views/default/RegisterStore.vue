@@ -94,11 +94,14 @@ export default {
           .post(`${Urls.STORES}/${Urls.REGISTER}`, formData)
           .then((response) => {
             const { data } = response;
+            console.log(data.statusCode);
             if (data.status === "UNVERIFIED") {
-              this.$router.push({ name: "login" });
+              this.$router.push({ name: "login user" });
               this.$toaster.success("Vui lòng chờ kiểm duyệt");
             } else {
-              this.$toaster.success(data.message);
+              this.$toaster.success(
+                "Vui lòng đăng nhập trước khi đăng ký store"
+              );
             }
           })
           .catch((error) => {
@@ -109,3 +112,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+.form-control {
+  padding-left: 20px !important;
+}
+</style>

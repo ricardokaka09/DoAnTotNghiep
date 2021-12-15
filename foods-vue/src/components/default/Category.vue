@@ -1,38 +1,50 @@
 <template>
   <div class="categories">
     <div class="container">
-      <VueSlickCarousel v-bind="settings">
-        <div
-          class="categories__item set-bg mx-2"
-          v-bind:style="{ 'background-image': 'url(' + imgCategory1 + ')' }"
-        >
-          <h5><a href="#">Fresh Fruit</a></h5>
-        </div>
-        <div
-          class="categories__item set-bg mx-2"
-          v-bind:style="{ 'background-image': 'url(' + imgCategory2 + ')' }"
-        >
-          <h5><a href="#">Fresh Fruit</a></h5>
-        </div>
-        <div
-          class="categories__item set-bg mx-2"
-          v-bind:style="{ 'background-image': 'url(' + imgCategory3 + ')' }"
-        >
-          <h5><a href="#">Fresh Fruit</a></h5>
-        </div>
-        <div
-          class="categories__item set-bg mx-2"
-          v-bind:style="{ 'background-image': 'url(' + imgCategory4 + ')' }"
-        >
-          <h5><a href="#">Fresh Fruit</a></h5>
-        </div>
-        <div
-          class="categories__item set-bg mx-2"
-          v-bind:style="{ 'background-image': 'url(' + imgCategory5 + ')' }"
-        >
-          <h5><a href="#">Fresh Fruit</a></h5>
-        </div>
-      </VueSlickCarousel>
+      <div class="row">
+        <VueSlickCarousel v-bind="settings" class="acc">
+          <div class="col-12">
+            <div
+              class="categories__item set-bg"
+              v-bind:style="{ 'background-image': 'url(' + imgCategory1 + ')' }"
+            >
+              <h5><a href="#">Fresh Fruit</a></h5>
+            </div>
+          </div>
+          <div class="col-12">
+            <div
+              class="categories__item set-bg"
+              v-bind:style="{ 'background-image': 'url(' + imgCategory2 + ')' }"
+            >
+              <h5><a href="#">Fresh Fruit</a></h5>
+            </div>
+          </div>
+          <div class="col-12">
+            <div
+              class="categories__item set-bg"
+              v-bind:style="{ 'background-image': 'url(' + imgCategory3 + ')' }"
+            >
+              <h5><a href="#">Fresh Fruit</a></h5>
+            </div>
+          </div>
+          <div class="col-12">
+            <div
+              class="categories__item set-bg"
+              v-bind:style="{ 'background-image': 'url(' + imgCategory4 + ')' }"
+            >
+              <h5><a href="#">Fresh Fruit</a></h5>
+            </div>
+          </div>
+          <div class="col-12">
+            <div
+              class="categories__item set-bg"
+              v-bind:style="{ 'background-image': 'url(' + imgCategory5 + ')' }"
+            >
+              <h5><a href="#">Fresh Fruit</a></h5>
+            </div>
+          </div>
+        </VueSlickCarousel>
+      </div>
     </div>
   </div>
 </template>
@@ -64,6 +76,7 @@ export default {
         slidesToShow: 4,
         slidesToScroll: 4,
         initialSlide: 0,
+        centerPadding: "40px",
         responsive: [
           {
             breakpoint: 1024,
@@ -72,6 +85,7 @@ export default {
               slidesToScroll: 3,
               infinite: true,
               dots: true,
+              arrows: false,
             },
           },
           {
@@ -80,6 +94,7 @@ export default {
               slidesToShow: 2,
               slidesToScroll: 2,
               initialSlide: 2,
+              arrows: false,
             },
           },
           {
@@ -87,6 +102,7 @@ export default {
             settings: {
               slidesToShow: 1,
               slidesToScroll: 1,
+              arrows: false,
             },
           },
         ],
@@ -95,3 +111,11 @@ export default {
   },
 };
 </script>
+<style lang="scss">
+.acc {
+  width: 100%;
+}
+.categories__item {
+  margin: 0 20px;
+}
+</style>

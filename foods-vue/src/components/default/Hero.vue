@@ -5,20 +5,14 @@
         <div class="col-lg-3">
           <div class="hero__categories">
             <div class="hero__categories__all">
-              <span>All</span>
+              <span>Department</span>
             </div>
             <ul>
-              <li><a href="#">Fresh Meat</a></li>
-              <li><a href="#">Vegetables</a></li>
-              <li><a href="#">Fruit & Nut Gifts</a></li>
-              <li><a href="#">Fresh Berries</a></li>
-              <li><a href="#">Ocean Foods</a></li>
-              <li><a href="#">Butter & Eggs</a></li>
-              <li><a href="#">Fastfood</a></li>
-              <li><a href="#">Fresh Onion</a></li>
-              <li><a href="#">Papayaya & Crisps</a></li>
-              <li><a href="#">Oatmeal</a></li>
-              <li><a href="#">Fresh Bananas</a></li>
+              <li v-for="item in listCategory" :key="item.categoryID">
+                <router-link :to="{ name: '#' }">
+                  {{ item.name }}
+                </router-link>
+              </li>
             </ul>
           </div>
         </div>
@@ -62,12 +56,41 @@
 
 <script>
 import bannerImg from "../../assets/img/hero/banner.jpg";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Hero",
   data() {
     return {
       bannerImg: bannerImg,
     };
+  },
+  created() {
+    this.getListCategory();
+  },
+  computed: {
+    ...mapGetters(["listCategory", "message", "error"]),
+  },
+  watch: {
+    success() {
+      if (this.success) {
+        this.$toaster.success(this.message);
+        this.$store.commit("set", ["message", ""]);
+        this.$store.commit("set", ["success", false]);
+      }
+    },
+    error() {
+      if (this.error) {
+        this.$toaster.error(this.message);
+        this.$store.commit("set", ["message", ""]);
+        this.$store.commit("set", ["error", false]);
+        setTimeout(() => {
+          this.$router.go();
+        }, 2000);
+      }
+    },
+  },
+  methods: {
+    ...mapActions({ getListCategory: "getListCategory" }),
   },
 };
 </script>
