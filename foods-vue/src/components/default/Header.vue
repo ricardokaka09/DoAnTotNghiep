@@ -7,7 +7,7 @@
             <div class="col-lg-6 col-md-6">
               <div class="header__top__left">
                 <ul>
-                  <li>
+                  <li v-on:click.prevent="registerStore()">
                     <font-awesome-icon
                       class="sidebar-icon"
                       :icon="['fas', 'envelope']"
@@ -26,7 +26,9 @@
                   </router-link>
                 </div>
                 <div class="header__top__right__auth">
-                  <router-link :to="{ name: isLogin ? 'profile' : 'login' }">
+                  <router-link
+                    :to="{ name: isLogin ? 'profile' : 'login user' }"
+                  >
                     <font-awesome-icon
                       class="sidebar-icon"
                       :icon="['fas', isLogin ? 'user' : 'lock']"
@@ -51,8 +53,14 @@
           <div class="col-lg-6">
             <nav class="header__menu">
               <ul>
-                <li class="active"><a href="./index.html">Home</a></li>
-                <li><a href="./shop-grid.html">Shop</a></li>
+                <li class="active">
+                  <router-link :to="{ name: 'home' }"> Home </router-link>
+                </li>
+                <li>
+                  <router-link :to="{ name: 'list product' }">
+                    Flash Buy
+                  </router-link>
+                </li>
                 <li>
                   <a href="#">Pages</a>
                   <ul class="header__menu__dropdown">
@@ -71,22 +79,22 @@
             <div class="header__cart">
               <ul>
                 <li>
-                  <a href="#" class="mx-2">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'heart']"
-                    />
-                    <span>1</span></a
-                  >
-                </li>
-                <li>
-                  <a href="#" class="mx-2">
+                  <router-link :to="{ name: 'cart' }" class="mx-2">
                     <font-awesome-icon
                       class="sidebar-icon"
                       :icon="['fas', 'shopping-bag']"
                     />
-                    <span>3</span></a
-                  >
+                    <span>1</span>
+                  </router-link>
+                </li>
+                <li>
+                  <router-link :to="{ name: 'heart' }" class="mx-2">
+                    <font-awesome-icon
+                      class="sidebar-icon"
+                      :icon="['fas', 'heart']"
+                    />
+                    <span>1</span>
+                  </router-link>
                 </li>
               </ul>
               <div class="header__cart__price">item: <span>$150.00</span></div>
@@ -94,7 +102,7 @@
           </div>
         </div>
         <div class="humberger__open">
-          <!-- <font-awesome-icon class="sidebar-icon" :icon="['fas', 'menu']" /> -->
+          <font-awesome-icon class="sidebar-icon" :icon="['fas', 'bars']" />
         </div>
       </div>
     </div>
@@ -103,7 +111,7 @@
 
 <script>
 import { Constants } from "../../utils/constants.js";
-import logo from "../../assets/img/logo.png";
+import logo from "../../assets/img/logo_foods.png";
 export default {
   name: "Header",
   data() {
@@ -117,6 +125,16 @@ export default {
     if (token) {
       this.isLogin = true;
     }
+  },
+  methods: {
+    registerStore() {
+      const token = localStorage.getItem(Constants.TOKEN);
+      if (token) {
+        this.$router.push({ name: "register store" });
+      } else {
+        this.$router.push({ name: "login user" });
+      }
+    },
   },
 };
 </script>

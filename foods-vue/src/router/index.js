@@ -26,6 +26,8 @@ const Home = () => import("@/views/default/Home");
 const ActiveAccount = () => import("@/views/default/ActiveAccount");
 const RegisterStore = () => import("@/views/default/RegisterStore");
 const LoginUser = () => import("@/views/default/Login");
+const Cart = () => import("@/components/default/Cart");
+const ListProduct = () => import("@/components/default/ListProduct");
 
 Vue.use(Router);
 let router = new Router({
@@ -89,15 +91,31 @@ function configRoutes() {
           name: "register store",
           component: RegisterStore,
         },
-        {
-          path: `${Routes.PAGES}/404`,
-          name: "page404",
-          component: Login,
-        },
+
         {
           path: `${Routes.LOGIN}`,
           name: "login user",
           component: LoginUser,
+        },
+        {
+          path: `${Routes.REGISTER}/${Routes.USER}`,
+          name: "register user",
+          component: RegisterUser,
+        },
+        {
+          path: `${Routes.CART}`,
+          name: "cart",
+          component: Cart,
+        },
+        {
+          path: `${Routes.PRODUCT}`,
+          name: "list product",
+          component: ListProduct,
+        },
+        {
+          path: `${Routes.PAGES}/404`,
+          name: "page404",
+          component: Login,
         },
       ],
     },
@@ -109,13 +127,8 @@ function configRoutes() {
       children: [
         {
           path: `${Routes.ADMIN}/${Routes.LOGIN}`,
-          name: "login",
+          name: "login admin",
           component: Login,
-        },
-        {
-          path: `${Routes.REGISTER}/${Routes.USER}`,
-          name: "register user",
-          component: RegisterUser,
         },
         {
           path: `register/verify`,
@@ -125,7 +138,7 @@ function configRoutes() {
         {
           path: `${Routes.PAGES}/404`,
           name: "page404",
-          component: Login,
+          component: Page404,
         },
       ],
     },

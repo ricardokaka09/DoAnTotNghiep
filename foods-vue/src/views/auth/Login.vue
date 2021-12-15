@@ -151,6 +151,6 @@ export default {
 </script>
 <style scoped>
 .form-control {
-  padding-left: unset !important;
+  padding-left: 30px !important;
 }
 </style>

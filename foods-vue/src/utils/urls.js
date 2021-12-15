@@ -24,4 +24,5 @@ export const Urls = {
   REGISTER: "register",
   STORE: "store",
   STORES: "stores",
+  CATEGORIES: "categories",
 };
