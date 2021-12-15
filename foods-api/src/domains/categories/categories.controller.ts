@@ -103,7 +103,6 @@ export class CategoriesController {
     description: `
     To find a category, by categoryID`,
   })
-  @UseGuards(AuthGuard('jwt'))
   async findOneCategory(
     @Param() { categoryID },
     @Request() { user },
@@ -121,12 +120,6 @@ export class CategoriesController {
   }
 
   @Get()
-  @ApiOperation({
-    description: `
-    To to find all category
-    If you want to find all, don't give anything, let it empty, choose sortBy and sortDirection`,
-  })
-  @UseGuards(AuthGuard('jwt'))
   async getList(
     @Request() { user },
     @Query() find: FindManyCategoryDto,

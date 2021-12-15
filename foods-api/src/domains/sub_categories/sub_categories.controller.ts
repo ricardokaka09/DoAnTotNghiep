@@ -81,7 +81,6 @@ export class SubCategoriesController {
     description: `
         To find a subCategory, by subCategoryID`,
   })
-  @UseGuards(AuthGuard('jwt'))
   async findOneSubCategory(
     @Param() { subCategoryID },
     @Request() { user },
@@ -98,12 +97,6 @@ export class SubCategoriesController {
   }
 
   @Get()
-  @ApiOperation({
-    description: `
-        To to find all subCategory
-        If you want to find all, don't give anything, let it empty, choose sortBy and sortDirection`,
-  })
-  @UseGuards(AuthGuard('jwt'))
   async findAllSubCategory(
     @Request() { user },
     @Query() find: FindManyCategoryDto,
@@ -120,10 +113,6 @@ export class SubCategoriesController {
   }
 
   @Delete(':subCategoryID')
-  @ApiOperation({
-    description: `
-        To delete a subCategory, by subCategoryID`,
-  })
   @UseGuards(AuthGuard('jwt'))
   async deleteOneSubCategory(
     @Param() { subCategoryID },

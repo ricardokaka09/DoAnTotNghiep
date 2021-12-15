@@ -104,7 +104,6 @@ export class ProductsController {
         To find a product, by productID
         `,
   })
-  @UseGuards(AuthGuard('jwt'))
   async findOneProduct(
     @Param() { productID },
     @Request() { user },
@@ -121,14 +120,6 @@ export class ProductsController {
   }
 
   @Get()
-  @ApiOperation({
-    description: `
-        To find all product, filter some product by name, or filter by price range
-        if you want to find all product, just let it empty and set sortBy, setDirection
-        if you want to filter some product, type name, set fromPrice and toPrice to search
-        `,
-  })
-  @UseGuards(AuthGuard('jwt'))
   async findAllProduct(
     @Request() { user },
     @Query() find: FindManyProductDto,
@@ -145,11 +136,6 @@ export class ProductsController {
   }
 
   @Delete(':productID')
-  @ApiOperation({
-    description: `
-        To delete a product, by productID
-        `,
-  })
   @UseGuards(AuthGuard('jwt'))
   async deleteOneProduct(
     @Param() { productID },
