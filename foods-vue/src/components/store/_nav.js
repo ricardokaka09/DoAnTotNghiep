@@ -4,13 +4,13 @@ export default [
     _children: [
       {
         _name: "CSidebarNavItem",
-        name: "Category",
+        name: "Dashboard",
         to: "/admin/user",
         icon: "cil-user",
       },
       {
         _name: "CSidebarNavItem",
-        name: "Nạp tiền",
+        name: "Category",
         to: "/admin/topup",
         icon: "cil-library-add",
       },

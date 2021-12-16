@@ -44,7 +44,6 @@
             <div class="form-group d-flex align-items-center">
               <div class="w-100 d-flex justify-content-end">
                 <button
-                  type="submit"
                   class="btn btn-primary rounded submit"
                   v-on:click="submitLogin()"
                 >
@@ -56,7 +55,10 @@
               <div class="w-100 text-center">
                 <p class="mb-1">
                   Don't have an account?
-                  <router-link :to="{ name: 'register user' }">
+                  <router-link
+                    :to="{ name: 'register user' }"
+                    style="color: #1a1a1a"
+                  >
                     Register
                   </router-link>
                 </p>

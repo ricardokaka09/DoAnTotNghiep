@@ -21,10 +21,10 @@ export default {
         console.log(data);
         if (data === true) {
           this.$toaster.success("Bạn đã đăng ký thành công");
-          this.$router.push({ name: "login" });
+          this.$router.push({ name: "login user" });
         } else {
           this.$toaster.error("Đăng ký không thành công");
-          this.$router.push({ name: "login" });
+          this.$router.push({ name: "login user" });
         }
       })
       .catch((error) => {

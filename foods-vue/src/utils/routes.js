@@ -13,4 +13,6 @@ export const Routes = {
   REGISTER: "register",
   STORE: "store",
   CATEGORY: "category",
+  CART: "cart",
+  PRODUCT: "product",
 };
