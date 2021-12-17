@@ -5,6 +5,7 @@ import { SendGrid } from '../../helpers/sendMail';
 import { RolesUserAccesses, StatusUserAccesses } from '../users/enums/types';
 import { UserAccessesService } from '../user_accesses/user_accesses.service';
 import { StoresService } from './stores.service';
+import { StoreStatus } from './models/stores.schema';
 
 @Injectable()
 export class StoresCombinedService {
@@ -21,7 +22,9 @@ export class StoresCombinedService {
     try {
       const store = await this.storesService.updateOne({
         query: { storeID: data.storeID },
-        data,
+        data: {
+          status: StoreStatus.VERIFIED,
+        },
         user,
       });
 
@@ -38,7 +41,7 @@ export class StoresCombinedService {
 
       await this.userAccessesService.createOne({
         storeID: data.storeID,
-        userID: user.userID,
+        userID: data.createdBy,
         roleName: RolesUserAccesses.STORE_MANAGER,
         status: StatusUserAccesses.ACCEPTED,
         createdBy: user.userID,
