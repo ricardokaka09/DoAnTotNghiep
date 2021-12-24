@@ -3,6 +3,7 @@ import { OrdersService } from '../orders/orders.service';
 import { ProductsService } from '../products/products.service';
 import {
   CreateOneOrderProductService,
+  DeleteOneOrderProductService,
   UpdateQuantityOrderProductService,
 } from './models/order_products.interface';
 import { OrderProductsService } from './order_products.service';
@@ -104,6 +105,51 @@ export class OrderProductsCombinedService {
           data: {
             quantity: product.quantity - quantity + orderProduct.quantity,
           },
+        }),
+      ]);
+
+      return true;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+  async deleteOrderProducts({
+    query,
+    credentials,
+  }: DeleteOneOrderProductService) {
+    try {
+      const orderProduct = await this.orderProductsService.findOne({
+        query,
+        credentials,
+      });
+      const product = await this.productsService.findOne({
+        query: { productID: orderProduct.productID },
+        credentials,
+      });
+      const order = await this.ordersService.findOne({
+        query: { orderID: orderProduct.orderID },
+        credentials,
+      });
+
+      await Promise.all([
+        this.orderProductsService.deleteOne({
+          query,
+          credentials,
+        }),
+        this.productsService.updateOne({
+          query: { productID: orderProduct.productID },
+          credentials,
+          data: {
+            quantity: product.quantity + orderProduct.quantity,
+          },
+        }),
+        this.ordersService.updateOne({
+          query: { orderID: orderProduct.orderID },
+          data: {
+            totalAmount:
+              order.totalAmount - orderProduct.quantity * product.price,
+          },
+          credentials: {},
         }),
       ]);
 

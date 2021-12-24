@@ -8,6 +8,8 @@ import { OrderProductsModule } from './domains/order_products/order_products.mod
 import { ProductsModule } from './domains/products/products.module';
 import { StoresModule } from './domains/stores/stores.module';
 import { SubCategoriesModule } from './domains/sub_categories/sub_categories.module';
+import { TransactionsModule } from './domains/transactions/transactions.module';
+import { TransactionLogsModule } from './domains/transaction_logs/transaction_logs.module';
 import { UsersModule } from './domains/users/users.module';
 import { UserAccessesModule } from './domains/user_accesses/user_accesses.module';
 import { AuthModule } from './middlewares/auth/auth.module';
@@ -26,6 +28,8 @@ import { AuthModule } from './middlewares/auth/auth.module';
     OrderLogsModule,
     OrderModule,
     OrderProductsModule,
+    TransactionLogsModule,
+    TransactionsModule,
   ],
 })
 export class AppModule {}

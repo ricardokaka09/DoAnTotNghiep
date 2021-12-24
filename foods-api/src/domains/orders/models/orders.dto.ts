@@ -1,16 +1,52 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import {
+  IsArray,
   IsEnum,
+  IsInt,
   IsNumber,
-  IsNumberString,
+  IsNotEmpty,
+  IsObject,
   IsOptional,
   IsString,
+  Min,
+  ValidateNested,
 } from 'class-validator';
+import { TypeTransactionEnum } from './enum';
 
-export class CreateOrderDto {
+export class CreateOrderProducts {
+  @ApiProperty()
+  @IsString()
+  productID?: string;
+
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsNumber()
+  @IsInt()
+  @Min(1)
+  quantity?: number;
+}
+export class UpdateOrderProducts {
+  @ApiProperty()
+  @IsString()
+  orderProductID: string;
+
+  @ApiProperty()
+  @IsNumber()
+  @IsInt()
+  @Min(1)
+  quantity: number;
+}
+
+export class CreateOrderLogs {
   @ApiProperty()
   @IsString()
   name: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  orderID?: string;
 
   @ApiPropertyOptional()
   @IsString()
@@ -21,6 +57,61 @@ export class CreateOrderDto {
   @IsString()
   @IsOptional()
   userID?: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  description?: string;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  @IsOptional()
+  totalAmount?: number;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  @IsOptional()
+  originalAmount?: number;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  @IsOptional()
+  discount?: number;
+
+  @ApiPropertyOptional()
+  @IsNumber()
+  @IsOptional()
+  fee?: number;
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  type?: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  status?: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  receiveAt?: string;
+
+  @ApiProperty()
+  @IsString()
+  event: string;
+}
+export class CreateOrderDto {
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  name?: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
+  storeID?: string;
 
   @ApiPropertyOptional()
   @IsOptional()
@@ -45,13 +136,20 @@ export class CreateOrderDto {
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
-  receivedAt?: string;
+  receiveAt?: string;
+
+  @ApiProperty({ type: CreateOrderProducts })
+  @ValidateNested({ each: true })
+  @IsNotEmpty()
+  @IsObject()
+  @Type(() => CreateOrderProducts)
+  readonly orderProducts: CreateOrderProducts;
 }
 
 export class UpdateOrderDto {
   @ApiPropertyOptional()
-  @IsOptional()
   @IsString()
+  @IsOptional()
   name?: string;
 
   @ApiPropertyOptional()
@@ -75,14 +173,21 @@ export class UpdateOrderDto {
   type?: string;
 
   @ApiPropertyOptional()
-  @IsOptional()
   @IsString()
+  @IsOptional()
   status?: string;
 
   @ApiPropertyOptional()
   @IsOptional()
   @IsString()
   receiveAt?: string;
+
+  @ApiProperty({ type: [UpdateOrderProducts] })
+  @IsNotEmpty()
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => UpdateOrderProducts)
+  readonly orderProducts: UpdateOrderProducts[];
 }
 
 export class DeleteOrderDto {
@@ -121,11 +226,6 @@ export class FindManyOrderDto {
   @ApiPropertyOptional()
   @IsString()
   @IsOptional()
-  companyID?: string;
-
-  @ApiPropertyOptional()
-  @IsString()
-  @IsOptional()
   storeID?: string;
 
   @ApiPropertyOptional({
@@ -141,9 +241,11 @@ export class FindManyOrderDto {
   readonly sortDirection?: string = 'ASC';
 
   @ApiPropertyOptional()
-  @IsNumberString()
+  @IsInt()
+  @Min(1)
   @IsOptional()
-  readonly limit?: string = '10';
+  @Type(() => Number)
+  readonly limit?: number = 10;
 
   @ApiPropertyOptional()
   @IsString()
@@ -151,7 +253,42 @@ export class FindManyOrderDto {
   readonly cursor?: string;
 
   @ApiPropertyOptional()
-  @IsNumberString()
+  @IsInt()
+  @Min(0)
   @IsOptional()
-  readonly offset?: string;
+  @Type(() => Number)
+  readonly offset?: number;
+}
+
+export class DeleteManyOrderProductsServiceDto {
+  @ApiProperty()
+  @IsArray()
+  readonly orderProducts: string[];
+}
+
+export class AcceptTransactionsServiceDto {
+  @ApiPropertyOptional()
+  @IsOptional()
+  @IsNumber()
+  @IsInt()
+  @Min(0)
+  readonly manualFee?: number = 0;
+}
+export class DenyTransactionsServiceDto {
+  @ApiProperty()
+  @IsString()
+  deniedReason: string;
+}
+
+export class CheckoutOrder {
+  @ApiProperty({ enum: TypeTransactionEnum })
+  @IsString()
+  @IsEnum(TypeTransactionEnum)
+  typeTransaction: TypeTransactionEnum;
+}
+
+export class ScheduleOrderDto {
+  @ApiProperty()
+  @IsString()
+  receiveAt: string;
 }
