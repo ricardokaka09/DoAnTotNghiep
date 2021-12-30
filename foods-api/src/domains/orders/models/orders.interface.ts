@@ -1,7 +1,7 @@
 import { Orders } from './orders.schema';
 
 interface CreateOneData {
-  name: string;
+  name?: string;
   storeID?: string;
   userID?: string;
   description?: string;
@@ -22,8 +22,8 @@ interface FindOneQuery {
 interface FindManyQuery {
   orderID?: string;
   name?: string;
-  limit?: string;
-  offset?: string;
+  limit?: number;
+  offset?: number;
   sortBy?: string;
   sortDirection?: string;
   userID?: string;

@@ -117,10 +117,11 @@ export class OrderProductsController {
     @Request() { user },
   ): Promise<boolean> {
     try {
-      const deletedOrder = await this.orderProductsService.deleteOne({
-        query: { orderProductID },
-        credentials: user,
-      });
+      const deletedOrder =
+        await this.orderProductsCombinedService.deleteOrderProducts({
+          query: { orderProductID },
+          credentials: user,
+        });
 
       return deletedOrder;
     } catch (error) {

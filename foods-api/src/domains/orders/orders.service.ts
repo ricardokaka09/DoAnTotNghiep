@@ -40,7 +40,7 @@ export class OrdersService {
     query,
     data,
     credentials,
-  }: UpdateOneOrderService): Promise<boolean> {
+  }: UpdateOneOrderService): Promise<Orders> {
     try {
       const order = await this.ordersRepository.findOne({
         where: query,
@@ -51,9 +51,15 @@ export class OrdersService {
         errorName: 'OrderNotFound',
       });
 
-      await this.ordersRepository.update({ orderID: order.orderID }, data);
+      const orderUpdated = await this.ordersRepository.update(
+        { orderID: order.orderID },
+        data,
+      );
 
-      return true;
+      return {
+        ...order,
+        ...data,
+      };
     } catch (error) {
       return Promise.reject(error);
     }
@@ -68,6 +74,22 @@ export class OrdersService {
       NotFound.isTruthy({
         and: [order],
         errorName: 'OrderNotFound',
+      });
+
+      return order;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  }
+
+  async checkExistOrder({
+    query,
+    needToThrowError = true,
+    credentials,
+  }: any): Promise<Orders> {
+    try {
+      const order = await this.ordersRepository.findOne({
+        where: query,
       });
 
       return order;
