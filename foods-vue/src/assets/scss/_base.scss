@@ -43,7 +43,7 @@ h6 {
 
 p {
   font-size: 16px;
-  font-family: 'Cairo', sans-serif;
+  font-family: "Cairo", sans-serif;
   color: #6f6f6f;
   font-weight: 400;
   line-height: 26px;
@@ -65,7 +65,7 @@ a:hover,
 a:focus {
   text-decoration: none;
   outline: none;
-  color: $white-color;
+  // color: $white-color;
 }
 
 ul,

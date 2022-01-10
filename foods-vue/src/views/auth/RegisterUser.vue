@@ -59,7 +59,7 @@
               <div class="w-100 d-flex justify-content-end">
                 <button
                   class="btn btn-primary rounded submit"
-                  v-on:click="submitLogin()"
+                  v-on:click.prevent="submitLogin()"
                 >
                   REGISTER
                 </button>
@@ -103,8 +103,6 @@ export default {
         email: this.email,
         password: this.password,
       };
-      // eslint-disable-next-line no-debugger
-      debugger;
       if (this.email == "") {
         this.$toaster.error("Vui lòng nhập email của bạn");
       } else if (this.password == "") {

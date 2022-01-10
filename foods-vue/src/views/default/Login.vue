@@ -45,7 +45,7 @@
               <div class="w-100 d-flex justify-content-end">
                 <button
                   class="btn btn-primary rounded submit"
-                  v-on:click="submitLogin()"
+                  v-on:click.prevent="submitLogin()"
                 >
                   Login
                 </button>
@@ -105,8 +105,6 @@ export default {
         password: this.password,
       };
       if (this.password !== "" && this.email !== "") {
-        // eslint-disable-next-line no-debugger
-        debugger;
         Api.requestServer1
           .post(`${Urls.USERS}/${Urls.LOGIN}`, formLogin)
           .then((response) => {
@@ -135,10 +133,21 @@ export default {
         .get(`${Urls.USERS}/me`)
         .then((response) => {
           const { data } = response;
+          const dataStore = data.accesses.filter(
+            (item) => item.storeID !== null
+          );
+          console.log(dataStore);
+          console.log(data.accesses);
           if (data.status === "ACTIVE") {
-            localStorage.setItem(Constants.ROLE, 3);
-            this.$router.push({ name: "home" });
-            this.$toaster.success("Đăng nhập thành công");
+            if (dataStore.length > 0) {
+              localStorage.setItem(Constants.ROLE, 2);
+              this.$router.push({ name: "DashboardStore" });
+              this.$toaster.success("Đăng nhập thành công");
+            } else {
+              localStorage.setItem(Constants.ROLE, 3);
+              this.$router.push({ name: "home" });
+              this.$toaster.success("Đăng nhập thành công");
+            }
           } else {
             this.$toaster.error(data.message);
           }
@@ -196,7 +205,7 @@ export default {
   border-radius: 5px;
   box-shadow: none;
   border: 1px solid rgba(0, 0, 0, 0.1);
-  padding-left: 60px;
+  padding-left: 60px !important;
   &:focus,
   &:active {
     outline: none !important;

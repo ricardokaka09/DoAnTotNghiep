@@ -25,4 +25,6 @@ export const Urls = {
   STORE: "store",
   STORES: "stores",
   CATEGORIES: "categories",
+  SUBCATEGORIES: "sub-categories",
+  PRODUCTS: "products",
 };
