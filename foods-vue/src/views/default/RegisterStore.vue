@@ -60,7 +60,7 @@
 </template>
 
 <script>
-// import { Constants } from "../../utils/constants";
+import { Constants } from "../../utils/constants";
 import { Api } from "../../utils/http-common";
 import { Urls } from "../../utils/urls";
 export default {
@@ -73,6 +73,21 @@ export default {
       description: "",
       phoneNumber: "",
     };
+  },
+  created() {
+    const token = localStorage.getItem(Constants.TOKEN);
+    if (token) {
+      const role = localStorage.getItem(Constants.ROLE);
+      if (parseInt(role) === 0) {
+        this.$router.push({ name: "dashboard admin" });
+      } else if (parseInt(role) === 2) {
+        this.$router.push({ name: "DashboardStore" });
+      } else if (parseInt(role) === 3) {
+        this.$router.push({ name: "register store" });
+      } else {
+        this.$router.push({ name: "home" });
+      }
+    }
   },
   methods: {
     registerStore() {

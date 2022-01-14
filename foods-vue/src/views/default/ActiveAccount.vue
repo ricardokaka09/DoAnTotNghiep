@@ -7,9 +7,6 @@ import { Api } from "../../utils/http-common";
 export default {
   name: "ActiveMail",
   created() {
-    // eslint-disable-next-line no-debugger
-    debugger;
-
     const { query } = this.$route;
     console.log(query.token);
     Api.requestServer1

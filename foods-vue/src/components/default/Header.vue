@@ -14,7 +14,13 @@
                     />
                     Đăng ký bán hàng
                   </li>
-                  <li>Kênh người bán</li>
+                  <li v-on:click.prevent="channelStore()">
+                    <font-awesome-icon
+                      class="sidebar-icon"
+                      :icon="['fas', 'envelope']"
+                    />
+                    Kênh người bán
+                  </li>
                 </ul>
               </div>
             </div>
@@ -70,8 +76,12 @@
                     <li><a href="./blog-details.html">Blog Details</a></li>
                   </ul>
                 </li>
-                <li><a href="./blog.html">Blog</a></li>
-                <li><a href="./contact.html">Contact</a></li>
+                <li>
+                  <router-link :to="{ name: 'blog' }"> Blog </router-link>
+                </li>
+                <li>
+                  <router-link :to="{ name: 'contact' }"> Contact </router-link>
+                </li>
               </ul>
             </nav>
           </div>
@@ -128,9 +138,28 @@ export default {
   },
   methods: {
     registerStore() {
+      // eslint-disable-next-line no-debugger
+      debugger;
+      const token = localStorage.getItem(Constants.TOKEN);
+      const role = localStorage.getItem(Constants.ROLE);
+      if (token) {
+        if (parseInt(role) != 2 || parseInt(role) != 1) {
+          this.$router.push({ name: "register store" });
+        }
+      } else {
+        this.$router.push({ name: "login user" });
+      }
+    },
+    channelStore() {
       const token = localStorage.getItem(Constants.TOKEN);
       if (token) {
-        this.$router.push({ name: "register store" });
+        const role = localStorage.getItem(Constants.ROLE);
+        if (parseInt(role) === 2) {
+          this.$router.push({ name: "DashboardStore" });
+        } else if (parseInt(role) === 3) {
+          this.$router.push({ name: "home" });
+          this.$toaster.warning("Bạn chưa có store");
+        }
       } else {
         this.$router.push({ name: "login user" });
       }

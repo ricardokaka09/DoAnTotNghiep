@@ -33,14 +33,8 @@ export default {
   created() {
     const token = localStorage.getItem(Constants.TOKEN);
     const role = localStorage.getItem(Constants.ROLE);
-    console.log(role);
-    if (token) {
-      const role = localStorage.getItem(Constants.ROLE);
-      if (parseInt(role) === 1) {
-        this.$router.push({ name: "dashboard store" });
-      } else {
-        this.$router.push({ name: "home" });
-      }
+    if (!token && parseInt(role) !== 2) {
+      this.$router.push({ name: "home" });
     }
   },
 };
@@ -54,5 +48,8 @@ export default {
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+.breadcrumb-item a:hover {
+  color: #321fdb;
 }
 </style>

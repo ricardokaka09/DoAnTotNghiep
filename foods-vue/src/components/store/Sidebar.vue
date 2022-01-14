@@ -7,12 +7,12 @@
   >
     <CSidebarBrand class="d-md-down-none" to="/">
       <img
-        src="@/assets/img/logo.png"
+        src="@/assets/img/logo4.png"
         :height="35"
         class="c-sidebar-brand-full"
       />
       <img
-        src="@/assets/img/logo.png"
+        src="@/assets/img/logo4.png"
         :height="35"
         class="c-sidebar-brand-minimized"
       />
