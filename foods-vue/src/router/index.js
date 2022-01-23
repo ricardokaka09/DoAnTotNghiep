@@ -7,7 +7,7 @@ import { Routes } from "../utils/routes";
 const LayoutAuth = () => import("@/components/auth/Layout");
 const LayoutAdmin = () => import("@/components/admin/Layout");
 const LayoutDefault = () => import("@/components/default/Layout");
-const LayoutStore = () => import("@/components/default/Layout");
+const LayoutStore = () => import("@/components/store/Layout");
 // Auth
 const Login = () => import("@/views/auth/Login");
 const RegisterUser = () => import("@/views/auth/RegisterUser");
@@ -28,6 +28,22 @@ const RegisterStore = () => import("@/views/default/RegisterStore");
 const LoginUser = () => import("@/views/default/Login");
 const Cart = () => import("@/components/default/Cart");
 const ListProduct = () => import("@/components/default/ListProduct");
+const Checkout = () => import("@/components/default/Checkout");
+const Contact = () => import("@/components/default/Contact");
+const BlogPage = () => import("@/components/default/BlogPage");
+const BlogDetail = () => import("@/components/default/BlogDetail");
+const ProductDetail = () => import("@/components/default/ProductDetail");
+
+//Store
+const DashboardStore = () => import("@/views/store/Dashboard");
+const ListCategoryStore = () => import("@/views/store/ListCategory");
+const CreateCategory = () => import("@/views/store/CreateCategory");
+const EditCategory = () => import("@/views/store/EditCategory");
+const ListSubCategoryStore = () => import("@/views/store/ListSubCategory");
+const CreateSubCategory = () => import("@/views/store/CreateSubCategory");
+const EditSubCategory = () => import("@/views/store/EditSubCategory");
+const ListProductStore = () => import("@/views/store/ListProduct");
+const CreateProduct = () => import("@/views/store/CreateProduct");
 
 Vue.use(Router);
 let router = new Router({
@@ -47,10 +63,10 @@ function configRoutes() {
       children: [
         {
           path: `/${Routes.ADMIN}/${Routes.CATEGORY}`,
-          name: "List Category",
+          name: "List Category Admin",
           component: ListCategory,
           meta: {
-            label: "Category",
+            label: "List Category Admin",
             requiresAuth: true,
             role: 0,
           },
@@ -59,18 +75,101 @@ function configRoutes() {
     },
     {
       path: `/${Routes.STORE}`,
-      name: "dashboard store",
-      redirect: `/${Routes.STORE}/${Routes.CATEGORY}`,
+      name: "Store",
+      redirect: `/${Routes.STORE}/${Routes.DASHBOARD}`,
       component: LayoutStore,
       children: [
         {
+          path: `/${Routes.STORE}/${Routes.DASHBOARD}`,
+          name: "DashboardStore",
+          component: DashboardStore,
+          meta: {
+            label: "DashboardStore",
+            requiresAuth: true,
+            role: 2,
+          },
+        },
+        //Cate
+        {
           path: `/${Routes.STORE}/${Routes.CATEGORY}`,
           name: "List Category",
-          component: ListCategory,
+          component: ListCategoryStore,
           meta: {
-            label: "Category",
+            label: "List Category",
             requiresAuth: true,
-            role: 1,
+            role: 2,
+          },
+        },
+        {
+          path: `/${Routes.STORE}/${Routes.CATEGORY}/${Routes.CREATE}`,
+          name: "Create Category",
+          component: CreateCategory,
+          meta: {
+            label: "Create Category",
+            requiresAuth: true,
+            role: 2,
+          },
+        },
+        {
+          path: `/${Routes.STORE}/${Routes.CATEGORY}/${Routes.EDIT}/:id`,
+          name: "edit category",
+          component: EditCategory,
+          meta: {
+            label: "edit category",
+            requiresAuth: true,
+            role: 2,
+          },
+        },
+        //SubCate
+        {
+          path: `/${Routes.STORE}/${Routes.CATEGORY}/${Routes.SUB}`,
+          name: "List SubCategory",
+          component: ListSubCategoryStore,
+          meta: {
+            label: "List SubCategory",
+            requiresAuth: true,
+            role: 2,
+          },
+        },
+        {
+          path: `/${Routes.STORE}/${Routes.CATEGORY}/${Routes.SUB}/${Routes.CREATE}`,
+          name: "Create SubCategory",
+          component: CreateSubCategory,
+          meta: {
+            label: "Create SubCategory",
+            requiresAuth: true,
+            role: 2,
+          },
+        },
+        {
+          path: `/${Routes.STORE}/${Routes.CATEGORY}/${Routes.SUB}/${Routes.EDIT}/:id`,
+          name: "Edit SubCategory",
+          component: EditSubCategory,
+          meta: {
+            label: "Edit SubCategory",
+            requiresAuth: true,
+            role: 2,
+          },
+        },
+        //Product
+        {
+          path: `/${Routes.STORE}/${Routes.PRODUCT}`,
+          name: "List Product Store",
+          component: ListProductStore,
+          meta: {
+            label: "List Product Store",
+            requiresAuth: true,
+            role: 2,
+          },
+        },
+        {
+          path: `/${Routes.STORE}/${Routes.PRODUCT}/${Routes.CREATE}`,
+          name: "Create Product",
+          component: CreateProduct,
+          meta: {
+            label: "Create Product",
+            requiresAuth: true,
+            role: 2,
           },
         },
       ],
@@ -91,7 +190,6 @@ function configRoutes() {
           name: "register store",
           component: RegisterStore,
         },
-
         {
           path: `${Routes.LOGIN}`,
           name: "login user",
@@ -111,6 +209,31 @@ function configRoutes() {
           path: `${Routes.PRODUCT}`,
           name: "list product",
           component: ListProduct,
+        },
+        {
+          path: `${Routes.CHECKOUT}`,
+          name: "checkout",
+          component: Checkout,
+        },
+        {
+          path: `${Routes.CONTACT}`,
+          name: "contact",
+          component: Contact,
+        },
+        {
+          path: `${Routes.BLOG}`,
+          name: "blog",
+          component: BlogPage,
+        },
+        {
+          path: `${Routes.BLOG}/${Routes.DETAIL}/:id`,
+          name: "blog detail",
+          component: BlogDetail,
+        },
+        {
+          path: `${Routes.PRODUCT}/${Routes.DETAIL}/:id`,
+          name: "product detail",
+          component: ProductDetail,
         },
         {
           path: `${Routes.PAGES}/404`,

@@ -282,45 +282,49 @@
                 :key="item.id"
               >
                 <div class="product__item">
-                  <div
-                    class="product__item__pic set-bg"
-                    v-bind:style="{
-                      'background-image': 'url(' + item.img + ')',
-                    }"
+                  <router-link
+                    :to="{ name: 'product detail', params: { id: item.id } }"
                   >
-                    <ul class="product__item__pic__hover">
-                      <li>
-                        <router-link :to="{ name: 'cart' }" class="mx-2">
-                          <font-awesome-icon
-                            class="sidebar-icon"
-                            :icon="['fas', 'heart']"
-                          />
-                        </router-link>
-                      </li>
-                      <li>
-                        <router-link :to="{ name: 'cart' }" class="mx-2">
-                          <font-awesome-icon
-                            class="sidebar-icon"
-                            :icon="['fas', 'retweet']"
-                          />
-                        </router-link>
-                      </li>
-                      <li>
-                        <router-link :to="{ name: 'cart' }" class="mx-2">
-                          <font-awesome-icon
-                            class="sidebar-icon"
-                            :icon="['fas', 'shopping-bag']"
-                          />
-                        </router-link>
-                      </li>
-                    </ul>
-                  </div>
-                  <div class="product__item__text">
-                    <h6>
-                      <a href="#">{{ item.name }}</a>
-                    </h6>
-                    <h5>${{ item.price }}</h5>
-                  </div>
+                    <div
+                      class="product__item__pic set-bg"
+                      v-bind:style="{
+                        'background-image': 'url(' + item.img + ')',
+                      }"
+                    >
+                      <ul class="product__item__pic__hover">
+                        <li>
+                          <router-link :to="{ name: 'cart' }" class="mx-2">
+                            <font-awesome-icon
+                              class="sidebar-icon"
+                              :icon="['fas', 'heart']"
+                            />
+                          </router-link>
+                        </li>
+                        <li>
+                          <router-link :to="{ name: 'cart' }" class="mx-2">
+                            <font-awesome-icon
+                              class="sidebar-icon"
+                              :icon="['fas', 'retweet']"
+                            />
+                          </router-link>
+                        </li>
+                        <li>
+                          <router-link :to="{ name: 'cart' }" class="mx-2">
+                            <font-awesome-icon
+                              class="sidebar-icon"
+                              :icon="['fas', 'shopping-bag']"
+                            />
+                          </router-link>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="product__item__text">
+                      <h6>
+                        <a href="#">{{ item.name }}</a>
+                      </h6>
+                      <h5>${{ item.price }}</h5>
+                    </div>
+                  </router-link>
                 </div>
               </div>
             </div>

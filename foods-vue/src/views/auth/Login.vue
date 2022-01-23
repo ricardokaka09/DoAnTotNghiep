@@ -15,7 +15,7 @@
           >
             <div class="w-75 d-flex flex-column align-items-center">
               <div class="pb-3 d-flex justify-content-center">
-                <h4>Đăng nhập</h4>
+                <h4>Đăng nhập Admin Flash Buy</h4>
               </div>
               <div class="w-100 pl-xl-4 pr-xl-4 pl-0 pr-0">
                 <CInput
@@ -47,7 +47,7 @@
                 <CInputCheckbox v-model="isRemember" label="Ghi nhớ mật khẩu" />
               </div>
               <div class="w-100 pl-xl-4 pr-xl-4 pl-0 pr-0 btn-submit">
-                <CButton class="px-4" type="submit" v-on:click="submitLogin()"
+                <CButton class="px-4" v-on:click.prevent="submitLogin()"
                   >Đăng nhập</CButton
                 >
               </div>
@@ -86,8 +86,6 @@ export default {
   },
   created() {
     const token = localStorage.getItem(Constants.TOKEN);
-    const role = localStorage.getItem(Constants.ROLE);
-    console.log(role);
     if (token) {
       const role = localStorage.getItem(Constants.ROLE);
       if (parseInt(role) === 0) {
@@ -104,8 +102,6 @@ export default {
         password: this.password,
       };
       if (this.password !== "" && this.email !== "") {
-        // eslint-disable-next-line no-debugger
-        debugger;
         Api.requestServer1
           .post(`${Urls.USERS}/${Urls.LOGIN}`, formLogin)
           .then((response) => {
@@ -135,8 +131,8 @@ export default {
         .then((response) => {
           const { data } = response;
           if (data.status === "ACTIVE") {
-            localStorage.setItem(Constants.ROLE, 3);
-            this.$router.push({ name: "home" });
+            localStorage.setItem(Constants.ROLE, 0);
+            this.$router.push({ name: "dashboard admin" });
             this.$toaster.success("Đăng nhập thành công");
           } else {
             this.$toaster.error(data.message);

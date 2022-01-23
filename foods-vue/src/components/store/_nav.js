@@ -5,25 +5,25 @@ export default [
       {
         _name: "CSidebarNavItem",
         name: "Dashboard",
-        to: "/admin/user",
+        to: "/store/dashboard",
         icon: "cil-user",
       },
       {
         _name: "CSidebarNavItem",
         name: "Category",
-        to: "/admin/topup",
+        to: "/store/category",
         icon: "cil-library-add",
       },
       {
         _name: "CSidebarNavItem",
-        name: "Chuyển tiền",
-        to: "/admin/transfer",
+        name: "SubCategory",
+        to: "/store/category/sub",
         icon: "cil-transfer",
       },
       {
         _name: "CSidebarNavItem",
-        name: "Thưởng",
-        to: "/admin/reward",
+        name: "Product",
+        to: "/store/product",
         icon: "cil-gift",
       },
       {

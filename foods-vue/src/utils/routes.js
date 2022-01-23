@@ -15,4 +15,9 @@ export const Routes = {
   CATEGORY: "category",
   CART: "cart",
   PRODUCT: "product",
+  CHECKOUT: "checkout",
+  CONTACT: "contact",
+  BLOG: "blog",
+  DETAIL: "detail",
+  SUB: "sub",
 };

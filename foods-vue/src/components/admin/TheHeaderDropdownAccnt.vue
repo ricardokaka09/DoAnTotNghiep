@@ -21,7 +21,7 @@
     <CDropdownItem> <CIcon name="cil-user" /> Thông tin cá nhân </CDropdownItem>
     <CDropdownItem> <CIcon name="cil-settings" /> Cài đặt </CDropdownItem>
     <CDropdownDivider />
-    <CDropdownItem v-on:click="logout()">
+    <CDropdownItem v-on:click.prevent="logout()">
       <CIcon name="cil-lock-locked" /> Đăng xuất
     </CDropdownItem>
   </CDropdown>
@@ -38,7 +38,7 @@ export default {
     logout() {
       localStorage.removeItem(Constants.TOKEN);
       localStorage.removeItem(Constants.ROLE);
-      this.$router.push({ name: "login" });
+      this.$router.push({ name: "login admin" });
     },
   },
 };
