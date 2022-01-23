@@ -3,6 +3,8 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '../../../configs/configs.service';
 import { UsersService } from '../../../domains/users/users.service';
+import { getRolesScopes } from '../helper/helper';
+import { roles as rolesWithScopes } from '../../../constants/roles';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
@@ -18,35 +20,11 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   }
 
   async validate(payload: any) {
-    const roles = [];
-    const personalScopes = [];
     const userData: any = await this.userService.getCurrentUserCredentials(
       { userID: payload.userID },
       false,
     );
-    const { accesses } = userData;
-
-    if (!accesses || !accesses.length) {
-      return {
-        roles,
-        personalScopes,
-      };
-    }
-
-    for (const access of accesses) {
-      if (!access) {
-        continue;
-      }
-      roles.push(access['roleName']);
-      switch (true) {
-        case !!access[`storeID`]:
-          personalScopes.push(access['roleName']);
-          continue;
-        default:
-          personalScopes.push(access['roleName']);
-          continue;
-      }
-    }
+    const { accesses } = userData as any;
 
     if (!userData) {
       throw new UnauthorizedException(
@@ -64,9 +42,14 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     ) {
       throw new UnauthorizedException('Your token is expired');
     }
+    const { roles, firstScopes, personalScopes } = getRolesScopes(
+      accesses,
+      rolesWithScopes,
+    );
 
     userData.roles = roles;
     userData.personalScopes = personalScopes;
+    userData.storeScopes = firstScopes;
     return userData;
   }
 }

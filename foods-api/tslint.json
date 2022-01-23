@@ -12,7 +12,7 @@
     "no-unused-variable": [true, { "ignore-pattern": "^_" }],
     "max-classes-per-file": false,
     "whitespace": [
-      true,
+      false,
       "check-branch",
       "check-decl",
       "check-operator",
@@ -42,7 +42,7 @@
     "arrow-parens": false,
     "object-literal-sort-keys": false,
     "no-console": false,
-    "semicolon": [true, "never"],
+    "semicolon": [false, "never"],
     "cyclomatic-complexity": [true, 30]
   },
   "rulesDirectory": []

@@ -8,6 +8,7 @@ export class Scopes implements CanActivate {
   personalScopes: any;
   constructor(requiredScopes, getPersonalScopes) {
     this.requiredScopes = requiredScopes;
+    // tslint:disable-next-line:no-shadowed-variable
     this.getPersonalScopes = (scopes, requiredScopes) => {
       if (!scopes || scopes.length === 0) {
         return false;
@@ -18,6 +19,7 @@ export class Scopes implements CanActivate {
       });
       return hasPersonalScopes;
     };
+    // tslint:disable-next-line:no-shadowed-variable
     this.getFirstGroupScopes = (accessWithScopes, requiredScopes) => {
       let hasFirstGroupScopes = false;
       const firstGroupIDs = [];
@@ -99,4 +101,15 @@ const checkScope = ({ scopes, requiredScopes }) => {
     }),
   );
   return hasScopes;
+};
+
+export const getIDsInObject = ({ data, keys }) => {
+  const ids = [];
+  for (const key of keys) {
+    if (!data[key]) {
+      continue;
+    }
+    ids.push(data[key]);
+  }
+  return ids;
 };

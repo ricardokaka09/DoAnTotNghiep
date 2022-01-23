@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Param,
   Post,
   Request,
@@ -10,10 +11,12 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import supertest from 'supertest';
 import { scopes } from '../../constants/scopes';
 import { Scopes } from '../../middlewares/authz/authz.service';
+import { Users } from '../users/models/users.schema';
 import { CreateStoresDto } from './models/stores.dto';
-import { StoreStatus } from './models/stores.schema';
+import { Stores, StoreStatus } from './models/stores.schema';
 import { StoresCombinedService } from './stores.combined.service';
 import { StoresService } from './stores.service';
 
@@ -51,6 +54,7 @@ export class StoresController {
     try {
       const store = await this.storesService.findOne({
         query: { storeID },
+        credentials: user,
       });
 
       if (!store) {
@@ -74,6 +78,22 @@ export class StoresController {
       return true;
     } catch (error) {
       return Promise.reject(error);
+    }
+  }
+
+  @Get(':storeID')
+  @UseGuards(new Scopes([scopes.READ_STORE]))
+  @UseGuards(AuthGuard('jwt'))
+  async findOne(@Request() { user }, @Param() { storeID }): Promise<Stores> {
+    try {
+      const store = await this.storesService.findOne({
+        query: { storeID },
+        credentials: user,
+      });
+
+      return store;
+    } catch (error) {
+      throw error;
     }
   }
 }

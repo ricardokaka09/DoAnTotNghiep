@@ -2,12 +2,14 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ConfigService } from './configs/configs.service';
+import { HttpExceptionFilter } from './shared/checkErrors';
 
 const configService = new ConfigService();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors();
+  app.useGlobalFilters(new HttpExceptionFilter());
 
   const config = new DocumentBuilder()
     .setTitle('FLASH BUY')

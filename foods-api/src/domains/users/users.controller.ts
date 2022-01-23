@@ -94,6 +94,7 @@ export class UsersController {
   @UsePipes(new ValidationPipe())
   async findOne(@Request() { user }) {
     try {
+      console.log(user);
       const userAccess = await this.usersService.getCurrentUserCredentials(
         { userID: user.userID },
         false,
