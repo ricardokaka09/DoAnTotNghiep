@@ -11,6 +11,7 @@ import {
 } from './models/categories.interface';
 import { EntityRepository, Repository } from 'typeorm';
 import { buildFindingQuery } from '../../helpers/build';
+import { AccessValidator } from '../../shared/validation';
 
 @EntityRepository(Categories)
 export class CategoriesService {
@@ -18,6 +19,7 @@ export class CategoriesService {
     @InjectRepository(Categories)
     private readonly categoriesRepository: Repository<Categories>,
   ) {}
+  private readonly validateAccess = new AccessValidator();
 
   async createOne({
     data,
@@ -29,10 +31,10 @@ export class CategoriesService {
         createBy: credentials.userID,
       };
 
-      // this.validateAccess.validateAccessToSingle({
-      //   data: payload,
-      //   credentials,
-      // });
+      this.validateAccess.validateAccessToSingle({
+        data: payload,
+        credentials,
+      });
 
       const newCategory = await this.categoriesRepository.save(payload);
 
@@ -57,10 +59,10 @@ export class CategoriesService {
         errorName: 'CategoryNotFound',
       });
 
-      // this.validateAccess.validateAccessToSingle({
-      //   data: category,
-      //   credentials,
-      // });
+      this.validateAccess.validateAccessToSingle({
+        data: category,
+        credentials,
+      });
 
       await this.categoriesRepository.update(
         { categoryID: category.categoryID },
@@ -88,10 +90,10 @@ export class CategoriesService {
         errorName: 'CategoryNotFound',
       });
 
-      // this.validateAccess.validateAccessToSingle({
-      //   data: category,
-      //   credentials,
-      // });
+      this.validateAccess.validateAccessToSingle({
+        data: category,
+        credentials,
+      });
 
       return category;
     } catch (error) {
@@ -171,6 +173,11 @@ export class CategoriesService {
       NotFound.isTruthy({
         and: [category],
         errorName: 'CategoryNotFound',
+      });
+
+      this.validateAccess.validateAccessToSingle({
+        data: category,
+        credentials,
       });
 
       await this.categoriesRepository.remove(category);

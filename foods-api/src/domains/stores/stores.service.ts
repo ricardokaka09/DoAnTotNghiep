@@ -47,13 +47,18 @@ export class StoresService {
     }
   }
 
-  async updateOne({ query, data, user }): Promise<boolean> {
+  async updateOne({ query, data, credentials }): Promise<boolean> {
     try {
       const store = await this.storesRepository.findOne({ where: query });
 
       if (!store) {
         throw new Error('Store not found');
       }
+
+      this.validateAccess.validateAccessToSingle({
+        data: store,
+        credentials,
+      });
 
       await this.storesRepository.update({ storeID: store.storeID }, data);
 
@@ -63,13 +68,18 @@ export class StoresService {
     }
   }
 
-  async deleteOne({ query, user }): Promise<boolean> {
+  async deleteOne({ query, credentials }): Promise<boolean> {
     try {
       const store = await this.storesRepository.findOne({ where: query });
 
       if (!store) {
         throw new Error('Store not found');
       }
+
+      this.validateAccess.validateAccessToSingle({
+        data: store,
+        credentials,
+      });
 
       await this.storesRepository.remove(store);
 

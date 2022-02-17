@@ -1,19 +1,15 @@
-// Read https://buildingrecommenders.wordpress.com/2015/11/18/overview-of-recommender-algorithms-part-2/
-// Watch https://www.youtube.com/watch?v=h9gpufJFF-0
-// Read https://datascience.stackexchange.com/questions/2598/item-based-and-user-based-recommendation-difference-in-mahout
-
 import math from 'mathjs';
 
 import { getCosineSimilarityRowVector, sortByScore } from './common';
 
 export function predictWithCfUserBased(
   ratingsGroupedByUser,
-  ratingsGroupedByMovie,
+  ratingsGroupedByProduct,
   userId,
 ) {
   const { userItem } = getMatrices(
     ratingsGroupedByUser,
-    ratingsGroupedByMovie,
+    ratingsGroupedByProduct,
     userId,
   );
   const { matrix, movieIds, userIndex } = userItem;
@@ -148,7 +144,7 @@ export function getMatrices(ratingsGroupedByUser, ratingsGroupedByMovie, uId) {
     (result, movieId) => {
       const rowVector = Object.keys(ratingsGroupedByUser).map(
         (userId, userIndex) => {
-          if (userId == uId) {
+          if (userId === uId) {
             result.userIndex = userIndex;
           }
 
@@ -172,7 +168,7 @@ export function getMatrices(ratingsGroupedByUser, ratingsGroupedByMovie, uId) {
 
       result.matrix.push(rowVector);
 
-      if (userId == uId) {
+      if (userId === uId) {
         result.userIndex = userIndex;
       }
 

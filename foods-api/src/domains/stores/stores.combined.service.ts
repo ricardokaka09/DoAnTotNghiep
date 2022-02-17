@@ -25,7 +25,7 @@ export class StoresCombinedService {
         data: {
           status: StoreStatus.VERIFIED,
         },
-        user,
+        credentials: { ...user },
       });
 
       const { htmlSuccess, subjectSuccess, textSuccess } =

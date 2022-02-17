@@ -11,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import supertest from 'supertest';
 import { scopes } from '../../constants/scopes';
 import { Scopes } from '../../middlewares/authz/authz.service';
 import { Users } from '../users/models/users.schema';
@@ -82,13 +81,13 @@ export class StoresController {
   }
 
   @Get(':storeID')
-  @UseGuards(new Scopes([scopes.READ_STORE]))
+  @UseGuards(new Scopes([]))
   @UseGuards(AuthGuard('jwt'))
   async findOne(@Request() { user }, @Param() { storeID }): Promise<Stores> {
     try {
       const store = await this.storesService.findOne({
         query: { storeID },
-        credentials: user,
+        credentials: { ...user },
       });
 
       return store;

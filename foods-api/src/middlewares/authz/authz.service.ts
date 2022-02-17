@@ -74,7 +74,7 @@ export class Scopes implements CanActivate {
       return true;
     }
     const personalScopes = user[`personalScopes`] || [];
-    const firstScopes = user[`firstScopes`] || [];
+    const firstScopes = user[`storeScopes`] || [];
     const hasPersonalScopes = this.getPersonalScope(
       personalScopes,
       requiredScopes,
@@ -84,7 +84,7 @@ export class Scopes implements CanActivate {
       requiredScopes,
     );
     req.user.hasPersonalScopes = hasPersonalScopes;
-    req.user.hasFirstScopes = hasFirstGroupScopes;
+    req.user.hasStoreScopes = hasFirstGroupScopes;
     // tslint:disable-next-line:no-string-literal
     req.user['storeIDs'] = firstGroupIDs;
 

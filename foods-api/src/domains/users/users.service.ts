@@ -157,7 +157,7 @@ export class UsersService {
       }
 
       const [user] = await this.usersRepository.query(
-        ` SELECT u.userID, u.fullName, u.status, u.gender, u.dateOfBirth, u.avatar, 
+        ` SELECT u.userID, u.fullName, u.status, u.gender, u.dateOfBirth, u.avatar,
         u.createdAt ${additionSelect}
         FROM users as u
         INNER JOIN extended_users as eu
@@ -169,7 +169,7 @@ export class UsersService {
         return null;
       }
       const accesses = await this.usersRepository.query(
-        `SELECT userAccessID, userID, storeID, 
+        `SELECT userAccessID, userID, storeID,
         roleName, status, createdBy FROM user_accesses
         WHERE userID = ?`,
         [user.userID],
