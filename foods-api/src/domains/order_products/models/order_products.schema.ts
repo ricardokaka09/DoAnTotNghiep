@@ -47,6 +47,12 @@ export class OrderProducts {
   @Column({ type: 'int', nullable: true, default: 0 })
   quantity: number;
 
+  @Column({ type: 'int', nullable: true, default: 0 })
+  price: number;
+
+  @Column({ type: 'varchar', nullable: true })
+  name: string;
+
   @ManyToOne(() => Users, (users) => users.userID, {
     onDelete: 'CASCADE',
   })

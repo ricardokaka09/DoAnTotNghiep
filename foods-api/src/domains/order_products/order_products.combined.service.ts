@@ -54,6 +54,8 @@ export class OrderProductsCombinedService {
       }
       const payload = {
         ...data,
+        price: product.price,
+        name: product.name,
         createdBy: credentials.userID,
         userID: credentials.userID,
         storeID,

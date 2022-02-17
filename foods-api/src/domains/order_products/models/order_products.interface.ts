@@ -3,6 +3,8 @@ import { OrderProducts } from './order_products.schema';
 interface CreateOneDate {
   productID?: string;
   quantity?: number;
+  price?: number;
+  name?: string;
 }
 
 interface UpdateOneData {
