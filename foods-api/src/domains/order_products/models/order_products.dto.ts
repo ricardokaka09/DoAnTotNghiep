@@ -1,10 +1,12 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
   IsEnum,
+  IsInt,
   IsNumber,
   IsNumberString,
   IsOptional,
   IsString,
+  Min,
 } from 'class-validator';
 
 export class CreateOrderProductDto {
@@ -15,6 +17,8 @@ export class CreateOrderProductDto {
   @ApiPropertyOptional()
   @IsOptional()
   @IsNumber()
+  @IsInt()
+  @Min(1)
   quantity?: number;
 }
 export class UpdateOrderProductDto {
