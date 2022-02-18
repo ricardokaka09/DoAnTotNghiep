@@ -18,15 +18,19 @@
         </div>
       </div>
       <div class="row featured__filter">
-        <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
+        <div
+          class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat"
+          v-for="(item, index) in listProduct"
+          :key="index"
+        >
           <div class="featured__item">
             <div
               class="featured__item__pic set-bg"
-              v-bind:style="{ 'background-image': 'url(' + imgFeatured1 + ')' }"
+              v-bind:style="{ 'background-image': 'url(' + item.photos + ')' }"
             >
               <ul class="featured__item__pic__hover">
                 <li>
-                  <router-link :to="{ name: '#' }">
+                  <router-link :to="{ name: '' }">
                     <font-awesome-icon
                       class="sidebar-icon"
                       :icon="['fas', 'heart']"
@@ -52,281 +56,16 @@
               </ul>
             </div>
             <div class="featured__item__text">
-              <h6><a href="#">Crab Pool Security</a></h6>
-              <h5>$30.00</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fastfood">
-          <div class="featured__item">
-            <div
-              class="featured__item__pic set-bg"
-              v-bind:style="{ 'background-image': 'url(' + imgFeatured2 + ')' }"
-            >
-              <ul class="featured__item__pic__hover">
-                <li>
-                  <router-link :to="{ name: '#' }">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'heart']"
-                    />
-                  </router-link>
-                </li>
-                <li>
-                  <router-link :to="{ name: '#' }">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'retweet']"
-                    />
-                  </router-link>
-                </li>
-                <li>
-                  <router-link :to="{ name: '#' }">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'shopping-cart']"
-                    />
-                  </router-link>
-                </li>
-              </ul>
-            </div>
-            <div class="featured__item__text">
-              <h6><a href="#">Crab Pool Security</a></h6>
-              <h5>$30.00</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mix vegetables fresh-meat">
-          <div class="featured__item">
-            <div
-              class="featured__item__pic set-bg"
-              v-bind:style="{ 'background-image': 'url(' + imgFeatured3 + ')' }"
-            >
-              <ul class="featured__item__pic__hover">
-                <li>
-                  <router-link :to="{ name: '#' }">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'heart']"
-                    />
-                  </router-link>
-                </li>
-                <li>
-                  <router-link :to="{ name: '#' }">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'retweet']"
-                    />
-                  </router-link>
-                </li>
-                <li>
-                  <router-link :to="{ name: '#' }">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'shopping-cart']"
-                    />
-                  </router-link>
-                </li>
-              </ul>
-            </div>
-            <div class="featured__item__text">
-              <h6><a href="#">Crab Pool Security</a></h6>
-              <h5>$30.00</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood oranges">
-          <div class="featured__item">
-            <div
-              class="featured__item__pic set-bg"
-              v-bind:style="{ 'background-image': 'url(' + imgFeatured4 + ')' }"
-            >
-              <ul class="featured__item__pic__hover">
-                <li>
-                  <router-link :to="{ name: '#' }">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'heart']"
-                    />
-                  </router-link>
-                </li>
-                <li>
-                  <router-link :to="{ name: '#' }">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'retweet']"
-                    />
-                  </router-link>
-                </li>
-                <li>
-                  <router-link :to="{ name: '#' }">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'shopping-cart']"
-                    />
-                  </router-link>
-                </li>
-              </ul>
-            </div>
-            <div class="featured__item__text">
-              <h6><a href="#">Crab Pool Security</a></h6>
-              <h5>$30.00</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-          <div class="featured__item">
-            <div
-              class="featured__item__pic set-bg"
-              v-bind:style="{ 'background-image': 'url(' + imgFeatured5 + ')' }"
-            >
-              <ul class="featured__item__pic__hover">
-                <li>
-                  <router-link :to="{ name: '#' }">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'heart']"
-                    />
-                  </router-link>
-                </li>
-                <li>
-                  <router-link :to="{ name: '#' }">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'retweet']"
-                    />
-                  </router-link>
-                </li>
-                <li>
-                  <router-link :to="{ name: '#' }">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'shopping-cart']"
-                    />
-                  </router-link>
-                </li>
-              </ul>
-            </div>
-            <div class="featured__item__text">
-              <h6><a href="#">Crab Pool Security</a></h6>
-              <h5>$30.00</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fastfood">
-          <div class="featured__item">
-            <div
-              class="featured__item__pic set-bg"
-              v-bind:style="{ 'background-image': 'url(' + imgFeatured6 + ')' }"
-            >
-              <ul class="featured__item__pic__hover">
-                <li>
-                  <router-link :to="{ name: '#' }">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'heart']"
-                    />
-                  </router-link>
-                </li>
-                <li>
-                  <router-link :to="{ name: '#' }">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'retweet']"
-                    />
-                  </router-link>
-                </li>
-                <li>
-                  <router-link :to="{ name: '#' }">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'shopping-cart']"
-                    />
-                  </router-link>
-                </li>
-              </ul>
-            </div>
-            <div class="featured__item__text">
-              <h6><a href="#">Crab Pool Security</a></h6>
-              <h5>$30.00</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mix fresh-meat vegetables">
-          <div class="featured__item">
-            <div
-              class="featured__item__pic set-bg"
-              v-bind:style="{ 'background-image': 'url(' + imgFeatured7 + ')' }"
-            >
-              <ul class="featured__item__pic__hover">
-                <li>
-                  <router-link :to="{ name: '#' }">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'heart']"
-                    />
-                  </router-link>
-                </li>
-                <li>
-                  <router-link :to="{ name: '#' }">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'retweet']"
-                    />
-                  </router-link>
-                </li>
-                <li>
-                  <router-link :to="{ name: '#' }">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'shopping-cart']"
-                    />
-                  </router-link>
-                </li>
-              </ul>
-            </div>
-            <div class="featured__item__text">
-              <h6><a href="#">Crab Pool Security</a></h6>
-              <h5>$30.00</h5>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-4 col-sm-6 mix fastfood vegetables">
-          <div class="featured__item">
-            <div
-              class="featured__item__pic set-bg"
-              v-bind:style="{ 'background-image': 'url(' + imgFeatured8 + ')' }"
-            >
-              <ul class="featured__item__pic__hover">
-                <li>
-                  <router-link :to="{ name: '#' }">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'heart']"
-                    />
-                  </router-link>
-                </li>
-                <li>
-                  <router-link :to="{ name: '#' }">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'retweet']"
-                    />
-                  </router-link>
-                </li>
-                <li>
-                  <router-link :to="{ name: '#' }">
-                    <font-awesome-icon
-                      class="sidebar-icon"
-                      :icon="['fas', 'shopping-cart']"
-                    />
-                  </router-link>
-                </li>
-              </ul>
-            </div>
-            <div class="featured__item__text">
-              <h6><a href="#">Crab Pool Security</a></h6>
-              <h5>$30.00</h5>
+              <h6>
+                <router-link
+                  :to="{
+                    name: 'product detail',
+                    params: { id: item.productID },
+                  }"
+                  >{{ item.name }}</router-link
+                >
+              </h6>
+              <h5>${{ item.price }}</h5>
             </div>
           </div>
         </div>
@@ -337,29 +76,20 @@
 
 <script>
 import $ from "jquery";
-import imgFeatured1 from "../../assets/img/featured/feature-1.jpg";
-import imgFeatured2 from "../../assets/img/featured/feature-2.jpg";
-import imgFeatured3 from "../../assets/img/featured/feature-3.jpg";
-import imgFeatured4 from "../../assets/img/featured/feature-4.jpg";
-import imgFeatured5 from "../../assets/img/featured/feature-5.jpg";
-import imgFeatured6 from "../../assets/img/featured/feature-6.jpg";
-import imgFeatured7 from "../../assets/img/featured/feature-7.jpg";
-import imgFeatured8 from "../../assets/img/featured/feature-8.jpg";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "FeatureProduct",
   data() {
-    return {
-      imgFeatured1: imgFeatured1,
-      imgFeatured2: imgFeatured2,
-      imgFeatured3: imgFeatured3,
-      imgFeatured4: imgFeatured4,
-      imgFeatured5: imgFeatured5,
-      imgFeatured6: imgFeatured6,
-      imgFeatured7: imgFeatured7,
-      imgFeatured8: imgFeatured8,
-    };
+    return {};
+  },
+  created() {
+    this.getListProduct();
+  },
+  computed: {
+    ...mapGetters(["listProduct", "message", "success", "error"]),
   },
   methods: {
+    ...mapActions({ getListProduct: "getListProduct" }),
     changeTab() {
       $(".featured__controls li").on("click", function () {
         $(".featured__controls li").removeClass("active");

@@ -8,60 +8,38 @@
             <div class="latest-product__slider owl-carousel">
               <VueSlickCarousel v-bind="setting1s">
                 <div class="latest-prdouct__slider__item">
-                  <router-link :to="{ name: '#' }" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img :src="imgLP1" alt="" />
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
-                    </div>
-                  </router-link>
-                  <router-link :to="{ name: '#' }" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img :src="imgLP2" alt="" />
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
-                    </div>
-                  </router-link>
-                  <router-link :to="{ name: '#' }" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img :src="imgLP3" alt="" />
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
+                  <router-link
+                    :to="{ name: '#' }"
+                    class="latest-product__item"
+                    v-for="(item, index) in listProduct"
+                    :key="index"
+                  >
+                    <div v-if="index < 3">
+                      <div class="latest-product__item__pic">
+                        <img :src="item.photos" alt="" />
+                      </div>
+                      <div class="latest-product__item__text">
+                        <h6>{{ item.name }}</h6>
+                        <span>{{ item.price }}</span>
+                      </div>
                     </div>
                   </router-link>
                 </div>
                 <div class="latest-prdouct__slider__item">
-                  <router-link :to="{ name: '#' }" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img :src="imgLP1" alt="" />
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
-                    </div>
-                  </router-link>
-                  <router-link :to="{ name: '#' }" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img :src="imgLP2" alt="" />
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
-                    </div>
-                  </router-link>
-                  <router-link :to="{ name: '#' }" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img :src="imgLP3" alt="" />
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
+                  <router-link
+                    :to="{ name: '#' }"
+                    class="latest-product__item"
+                    v-for="(item, index) in listProduct"
+                    :key="index"
+                  >
+                    <div v-if="index < 3">
+                      <div class="latest-product__item__pic">
+                        <img :src="item.photos" alt="" />
+                      </div>
+                      <div class="latest-product__item__text">
+                        <h6>{{ item.name }}</h6>
+                        <span>{{ item.price }}</span>
+                      </div>
                     </div>
                   </router-link>
                 </div></VueSlickCarousel
@@ -75,60 +53,38 @@
             <div class="latest-product__slider owl-carousel">
               <VueSlickCarousel v-bind="setting1s">
                 <div class="latest-prdouct__slider__item">
-                  <router-link :to="{ name: '#' }" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img :src="imgLP1" alt="" />
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
-                    </div>
-                  </router-link>
-                  <router-link :to="{ name: '#' }" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img :src="imgLP2" alt="" />
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
-                    </div>
-                  </router-link>
-                  <router-link :to="{ name: '#' }" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img :src="imgLP3" alt="" />
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
+                  <router-link
+                    :to="{ name: '#' }"
+                    class="latest-product__item"
+                    v-for="(item, index) in listProduct"
+                    :key="index"
+                  >
+                    <div v-if="index < 3">
+                      <div class="latest-product__item__pic">
+                        <img :src="item.photos" alt="" />
+                      </div>
+                      <div class="latest-product__item__text">
+                        <h6>{{ item.name }}</h6>
+                        <span>${{ item.price }}</span>
+                      </div>
                     </div>
                   </router-link>
                 </div>
                 <div class="latest-prdouct__slider__item">
-                  <router-link :to="{ name: '#' }" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img :src="imgLP1" alt="" />
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
-                    </div>
-                  </router-link>
-                  <router-link :to="{ name: '#' }" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img :src="imgLP2" alt="" />
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
-                    </div>
-                  </router-link>
-                  <router-link :to="{ name: '#' }" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img :src="imgLP3" alt="" />
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
+                  <router-link
+                    :to="{ name: '#' }"
+                    class="latest-product__item"
+                    v-for="(item, index) in listProduct"
+                    :key="index"
+                  >
+                    <div v-if="index < 3">
+                      <div class="latest-product__item__pic">
+                        <img :src="item.photos" alt="" />
+                      </div>
+                      <div class="latest-product__item__text">
+                        <h6>{{ item.name }}</h6>
+                        <span>${{ item.price }}</span>
+                      </div>
                     </div>
                   </router-link>
                 </div></VueSlickCarousel
@@ -142,60 +98,38 @@
             <div class="latest-product__slider owl-carousel">
               <VueSlickCarousel v-bind="setting1s">
                 <div class="latest-prdouct__slider__item">
-                  <router-link :to="{ name: '#' }" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img :src="imgLP1" alt="" />
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
-                    </div>
-                  </router-link>
-                  <router-link :to="{ name: '#' }" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img :src="imgLP2" alt="" />
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
-                    </div>
-                  </router-link>
-                  <router-link :to="{ name: '#' }" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img :src="imgLP3" alt="" />
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
+                  <router-link
+                    :to="{ name: '#' }"
+                    class="latest-product__item"
+                    v-for="(item, index) in listProduct"
+                    :key="index"
+                  >
+                    <div v-if="index < 3">
+                      <div class="latest-product__item__pic">
+                        <img :src="item.photos" alt="" />
+                      </div>
+                      <div class="latest-product__item__text">
+                        <h6>{{ item.name }}</h6>
+                        <span>${{ item.price }}</span>
+                      </div>
                     </div>
                   </router-link>
                 </div>
                 <div class="latest-prdouct__slider__item">
-                  <router-link :to="{ name: '#' }" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img :src="imgLP1" alt="" />
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
-                    </div>
-                  </router-link>
-                  <router-link :to="{ name: '#' }" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img :src="imgLP2" alt="" />
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
-                    </div>
-                  </router-link>
-                  <router-link :to="{ name: '#' }" class="latest-product__item">
-                    <div class="latest-product__item__pic">
-                      <img :src="imgLP3" alt="" />
-                    </div>
-                    <div class="latest-product__item__text">
-                      <h6>Crab Pool Security</h6>
-                      <span>$30.00</span>
+                  <router-link
+                    :to="{ name: '#' }"
+                    class="latest-product__item"
+                    v-for="(item, index) in listProduct"
+                    :key="index"
+                  >
+                    <div v-if="index > 3">
+                      <div class="latest-product__item__pic">
+                        <img :src="item.photos" alt="" />
+                      </div>
+                      <div class="latest-product__item__text">
+                        <h6>{{ item.name }}</h6>
+                        <span>${{ item.price }}</span>
+                      </div>
                     </div>
                   </router-link>
                 </div></VueSlickCarousel
@@ -213,17 +147,14 @@ import VueSlickCarousel from "vue-slick-carousel";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 // optional style for arrows & dots
 import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
-import imgLP1 from "../../assets/img/categories/cat-1.jpg";
-import imgLP2 from "../../assets/img/categories/cat-2.jpg";
-import imgLP3 from "../../assets/img/categories/cat-3.jpg";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "LatestProduct",
   components: { VueSlickCarousel },
   data() {
     return {
-      imgLP1: imgLP1,
-      imgLP2: imgLP2,
-      imgLP3: imgLP3,
+      listTest: [],
+      active: false,
       setting1s: {
         dots: false,
         infinite: false,
@@ -262,6 +193,16 @@ export default {
         ],
       },
     };
+  },
+  created() {
+    this.getListProduct();
+  },
+  watch: {},
+  computed: {
+    ...mapGetters(["listProduct", "message", "success", "error"]),
+  },
+  methods: {
+    ...mapActions({ getListProduct: "getListProduct" }),
   },
 };
 </script>

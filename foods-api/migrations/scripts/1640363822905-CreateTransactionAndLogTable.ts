@@ -6,9 +6,9 @@ export class CreateTransactionAndLogTable1640363822905
   name = 'CreateTransactionAndLogTable1640363822905';
 
   public async up(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.query(
-      `CREATE TABLE blogs (blogID char(36) NOT NULL, name varchar(255) NOT NULL, title varchar(255) NULL, content varchar(255) NULL, thumbnail varchar(255) NULL, createdBy char(36) NULL, createdAt datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), updatedAt datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), PRIMARY KEY (blogID)) ENGINE=InnoDB`,
-    );
+    // await queryRunner.query(
+    //   `CREATE TABLE blogs (blogID char(36) NOT NULL, name varchar(255) NOT NULL, title varchar(255) NULL, content varchar(255) NULL, thumbnail varchar(255) NULL, createdBy char(36) NULL, createdAt datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), updatedAt datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), PRIMARY KEY (blogID)) ENGINE=InnoDB`,
+    // );
     await queryRunner.query(
       `CREATE TABLE transactions (transactionID char(36) NOT NULL, storeID char(36) NULL, userID char(36) NULL, orderID char(36) NULL, amount int NOT NULL DEFAULT '0', originAmount int NOT NULL DEFAULT '0', percentFee float NULL DEFAULT '0', fixedFee int NULL DEFAULT '0', manualFee int NULL DEFAULT '0', fee int NULL DEFAULT '0', status varchar(255) NOT NULL, deniedReason varchar(255) NULL, type varchar(255) NOT NULL, note text NULL, createdBy char(36) NULL, createdAt datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), updatedAt datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), PRIMARY KEY (transactionID)) ENGINE=InnoDB`,
     );

@@ -27,4 +27,7 @@ export const Urls = {
   CATEGORIES: "categories",
   SUBCATEGORIES: "sub-categories",
   PRODUCTS: "products",
+  ORDERS_PRODUCT: "order-products",
+  ORDERS: "orders",
+  TRANSACTIONS: "transactions",
 };

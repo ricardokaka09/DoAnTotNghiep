@@ -20,4 +20,5 @@ export const Routes = {
   BLOG: "blog",
   DETAIL: "detail",
   SUB: "sub",
+  ORDERS: "orders",
 };

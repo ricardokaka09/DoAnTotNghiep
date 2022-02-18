@@ -34,6 +34,11 @@ export default new Vuex.Store({
     categoryByID: {},
     listSubCategory: [],
     listProduct: [],
+    productByID: {},
+    listCart: [],
+    listOrderByID: [],
+    orderID: "",
+    listCart1: [],
   },
   getters: {
     success: (state) => state.success,
@@ -44,6 +49,11 @@ export default new Vuex.Store({
     categoryByID: (state) => state.categoryByID,
     listSubCategory: (state) => state.listSubCategory,
     listProduct: (state) => state.listProduct,
+    productByID: (state) => state.productByID,
+    listCart: (state) => state.listCart,
+    listOrderByID: (state) => state.listOrderByID,
+    orderID: (state) => state.orderID,
+    listCart1: (state) => state.listCart1,
   },
   mutations: {
     set(state, [variable, value]) {
@@ -222,8 +232,6 @@ export default new Vuex.Store({
         .post(`${Urls.PRODUCTS}`, formData)
         .then((response) => {
           const { data } = response;
-          // eslint-disable-next-line no-debugger
-          debugger;
           if (data.statusCode == 401) {
             commit("set", ["message", data.message]);
             commit("set", ["error", true]);
@@ -246,6 +254,88 @@ export default new Vuex.Store({
             commit("set", ["success", true]);
           } else {
             commit("set", ["message", data.message]);
+            commit("set", ["error", true]);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getProductByID({ commit }, id) {
+      Api.requestServer1
+        .get(`${Urls.PRODUCTS}?productID=${id}`)
+        .then((response) => {
+          const { data } = response;
+          commit("set", ["productByID", data.list[0]]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getListOrderByUserID({ commit }) {
+      let user_id = localStorage.getItem("user_id");
+      Api.requestServer1
+        .get(`${Urls.ORDERS}?userID=${user_id}`)
+        .then((response) => {
+          const { data } = response;
+          commit("set", ["listOrderByID", data.list]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getListCart({ commit }) {
+      Api.requestServer1
+        .get(`${Urls.ORDERS_PRODUCT}`)
+        .then((response) => {
+          const { data } = response;
+          commit("set", ["listCart", data]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    getListCartItem({ commit }) {
+      let user_id = localStorage.getItem("user_id");
+      Api.requestServer1
+        .get(`${Urls.ORDERS_PRODUCT}?userID=${user_id}`)
+        .then((response) => {
+          const { data } = response;
+          commit("set", ["listCart1", data.list]);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    addToCart({ commit }, formData) {
+      Api.requestServer1
+        .post(`${Urls.ORDERS_PRODUCT}`, formData)
+        .then((response) => {
+          const { status } = response;
+          if (status == 201) {
+            commit("set", ["message", "Add Success"]);
+            commit("set", ["success", true]);
+          } else {
+            commit("set", ["message", "Add không thành công"]);
+            commit("set", ["error", true]);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    createCheckout({ commit }, formData) {
+      Api.requestServer1
+        .post(`${Urls.TRANSACTIONS}`, formData)
+        .then((response) => {
+          const { status } = response;
+          // eslint-disable-next-line no-debugger
+          debugger;
+          if (status == 201) {
+            commit("set", ["message", "Đặt hàng thành công"]);
+            commit("set", ["success", true]);
+          } else {
+            commit("set", ["message", "Đặt hàng không thành công"]);
             commit("set", ["error", true]);
           }
         })
