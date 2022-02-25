@@ -13,7 +13,6 @@ import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { scopes } from '../../constants/scopes';
 import { Scopes } from '../../middlewares/authz/authz.service';
-import { Users } from '../users/models/users.schema';
 import { CreateStoresDto } from './models/stores.dto';
 import { Stores, StoreStatus } from './models/stores.schema';
 import { StoresCombinedService } from './stores.combined.service';

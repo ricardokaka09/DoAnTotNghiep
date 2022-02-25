@@ -10,6 +10,7 @@ import {
 } from 'typeorm';
 import { Categories } from '../../categories/models/categories.schema';
 import { SubCategories } from '../../sub_categories/models/sub_categories.schema';
+import { TransformJson } from '../../../helpers/transfromJson';
 
 @Entity()
 export class Products {
@@ -71,7 +72,7 @@ export class Products {
   @Column({ type: 'varchar', nullable: true })
   origin: string;
 
-  @Column({ type: 'json', nullable: true })
+  @Column({ type: 'json', nullable: true, transformer: new TransformJson() })
   properties: string;
 
   @Column({ type: 'varchar', nullable: true })

@@ -10,8 +10,8 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiBearerAuth, ApiHeader, ApiTags } from '@nestjs/swagger';
-import { UsersService } from './users.service';
 import { sign } from 'jsonwebtoken';
+import { UsersService } from './users.service';
 import { ConfigService } from '../../configs/configs.service';
 import { UserCombinedService } from './user.combined.service';
 import { CreateUserDto, LoginWithEmailPasswordDto } from './models/users.dto';

@@ -16,6 +16,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CategoriesService } from '../categories/categories.service';
 import { SubCategoriesService } from '../sub_categories/sub_categories.service';
+import { ProductCombineService } from './models/products.combine.service';
 import {
   CreateProductDto,
   FindManyProductDto,
@@ -32,6 +33,7 @@ export class ProductsController {
     private readonly productService: ProductsService,
     private readonly subCategories: SubCategoriesService,
     private readonly categories: CategoriesService,
+    private readonly productCombinedService: ProductCombineService,
   ) {}
 
   @Post()
@@ -93,6 +95,21 @@ export class ProductsController {
         credentials: user,
       });
       return isUpdated;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  @Get('/recommendation')
+  async recommendationProduct(
+    @Request() { user },
+  ): Promise<FindManyProductResult> {
+    try {
+      const listProduct = await this.productCombinedService.recommenderProduct({
+        query: {},
+        credentials: user,
+      });
+      return listProduct;
     } catch (error) {
       throw error;
     }
