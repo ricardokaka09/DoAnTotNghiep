@@ -55,18 +55,19 @@
                   <div class="checkout__order__products">
                     Products <span>Total</span>
                   </div>
-                  <ul>
-                    <li>Vegetable’s Package <span>$75.99</span></li>
-                    <li>Fresh Vegetable <span>$151.99</span></li>
-                    <li>Organic Bananas <span>$53.99</span></li>
+                  <ul v-for="(item, index) in listCart1" :key="index">
+                    <li>
+                      {{ item.name }}
+                      <span>${{ item.price * item.quantity }}</span>
+                    </li>
                   </ul>
                   <div class="checkout__order__subtotal">
-                    Subtotal <span>$750.99</span>
+                    Subtotal <span>$0</span>
                   </div>
                   <div class="checkout__order__total">
-                    Total <span>$750.99</span>
+                    Total <span>${{ total }}</span>
                   </div>
-                  <div class="checkout__input__checkbox">
+                  <!-- <div class="checkout__input__checkbox">
                     <label for="acc-or">
                       Create an account?
                       <input type="checkbox" id="acc-or" />
@@ -83,15 +84,17 @@
                       <input type="checkbox" id="payment" />
                       <span class="checkmark"></span>
                     </label>
-                  </div>
+                  </div> -->
                   <div class="checkout__input__checkbox">
                     <label for="paypal">
-                      Paypal
+                      Payment on delivery
                       <input type="checkbox" id="paypal" />
                       <span class="checkmark"></span>
                     </label>
                   </div>
-                  <button type="submit" class="site-btn">PLACE ORDER</button>
+                  <b-button class="site-btn" v-on:click="createNewCheckout()">
+                    PLACE ORDER
+                  </b-button>
                 </div>
               </div>
             </div>
@@ -104,19 +107,80 @@
 
 <script>
 import imgBreadcrumb from "../../assets/img/breadcrumb.jpg";
-import { Constants } from "../../utils/constants";
+import { mapActions, mapGetters } from "vuex";
+
 export default {
   name: "Checkout",
-  created() {
-    const token = localStorage.getItem(Constants.TOKEN);
-    if (!token) {
-      this.$router.push({ name: "login user" });
-    }
-  },
   data() {
     return {
       imgBreadcrumb: imgBreadcrumb,
+      price: 30,
+      total: 0,
     };
+  },
+  created() {
+    this.getListCartItem();
+  },
+  watch: {
+    listCart1() {
+      this.total = this.listCart1.reduce(
+        (previousValue, currentValue) =>
+          previousValue + currentValue.price * currentValue.quantity,
+        0
+      );
+    },
+    success() {
+      if (this.success) {
+        this.$toaster.success(this.message);
+        this.$store.commit("set", ["message", ""]);
+        this.$store.commit("set", ["success", false]);
+        this.$router.push({ name: "home" });
+      }
+    },
+    error() {
+      if (this.error) {
+        this.$toaster.error(this.message);
+        this.$store.commit("set", ["message", ""]);
+        this.$store.commit("set", ["error", false]);
+      }
+    },
+  },
+  computed: {
+    ...mapGetters([
+      "listCart",
+      "message",
+      "success",
+      "error",
+      "listOrderByID",
+      "orderID",
+      "listCart1",
+    ]),
+  },
+  methods: {
+    ...mapActions({ getListCart: "getListCart" }),
+    ...mapActions({ getListOrderByUserID: "getListOrderByUserID" }),
+    ...mapActions({ getListCartItem: "getListCartItem" }),
+    ...mapActions({ createCheckout: "createCheckout" }),
+    ...mapActions({ deleteOrder: "deleteOrder" }),
+    createNewCheckout() {
+      // eslint-disable-next-line no-debugger
+      debugger;
+      const formData = {
+        storeID: "b0bc9d0e-7504-4f5d-87a7-d0bf8f0f50a2",
+        userID: "02121735-8cac-4c06-9bac-324626f28494",
+        orderID: this.listCart1[0].orderID,
+        amount: this.total,
+        originAmount: 10,
+        percentFee: 0,
+        fixedFee: 10,
+        manualFee: 10,
+        fee: 10,
+        type: "1",
+        status: "CUSTOMER_CANCELED",
+      };
+      this.createCheckout(formData);
+      this.deleteOrder(formData.orderID);
+    },
   },
 };
 </script>

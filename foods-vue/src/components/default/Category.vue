@@ -59,9 +59,16 @@ import VueSlickCarousel from "vue-slick-carousel";
 import "vue-slick-carousel/dist/vue-slick-carousel.css";
 // optional style for arrows & dots
 import "vue-slick-carousel/dist/vue-slick-carousel-theme.css";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Category",
   components: { VueSlickCarousel },
+  created() {
+    this.getListProduct();
+  },
+  computed: {
+    ...mapGetters(["listProduct", "message", "success", "error"]),
+  },
   data() {
     return {
       imgCategory1: imgCategory1,
@@ -108,6 +115,9 @@ export default {
         ],
       },
     };
+  },
+  methods: {
+    ...mapActions({ getListProduct: "getListProduct" }),
   },
 };
 </script>

@@ -34,56 +34,28 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  <tr v-for="(item, index) in listCart1" :key="index">
                     <td class="shoping__cart__item">
-                      <img src="img/cart/cart-1.jpg" alt="" />
-                      <h5>Vegetable’s Package</h5>
+                      <!-- <img src="img/cart/cart-1.jpg" alt="" /> -->
+                      <h5 class="w-50">{{ item.name }}</h5>
+                      <b-button
+                        class="mx-4"
+                        variant="warning"
+                        v-on:click="removeCart(item.orderProductID)"
+                        >Remove</b-button
+                      >
                     </td>
-                    <td class="shoping__cart__price">$55.00</td>
+                    <td class="shoping__cart__price">${{ item.price }}</td>
                     <td class="shoping__cart__quantity">
                       <div class="quantity">
                         <div class="pro-qty">
-                          <input type="text" value="1" />
+                          {{ item.quantity }}
                         </div>
                       </div>
                     </td>
-                    <td class="shoping__cart__total">$110.00</td>
-                    <td class="shoping__cart__item__close">
-                      <span class="icon_close"></span>
+                    <td class="shoping__cart__total">
+                      ${{ item.price * item.quantity }}
                     </td>
-                  </tr>
-                  <tr>
-                    <td class="shoping__cart__item">
-                      <img src="img/cart/cart-2.jpg" alt="" />
-                      <h5>Fresh Garden Vegetable</h5>
-                    </td>
-                    <td class="shoping__cart__price">$39.00</td>
-                    <td class="shoping__cart__quantity">
-                      <div class="quantity">
-                        <div class="pro-qty">
-                          <input type="text" value="1" />
-                        </div>
-                      </div>
-                    </td>
-                    <td class="shoping__cart__total">$39.99</td>
-                    <td class="shoping__cart__item__close">
-                      <span class="icon_close"></span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="shoping__cart__item">
-                      <img src="img/cart/cart-3.jpg" alt="" />
-                      <h5>Organic Bananas</h5>
-                    </td>
-                    <td class="shoping__cart__price">$69.00</td>
-                    <td class="shoping__cart__quantity">
-                      <div class="quantity">
-                        <div class="pro-qty">
-                          <input type="text" value="1" />
-                        </div>
-                      </div>
-                    </td>
-                    <td class="shoping__cart__total">$69.99</td>
                     <td class="shoping__cart__item__close">
                       <span class="icon_close"></span>
                     </td>
@@ -96,7 +68,7 @@
         <div class="row">
           <div class="col-lg-12">
             <div class="shoping__cart__btns">
-              <a href="#" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
+              <a href="/home" class="primary-btn cart-btn">CONTINUE SHOPPING</a>
               <a href="#" class="primary-btn cart-btn cart-btn-right"
                 ><span class="icon_loading"></span> Upadate Cart</a
               >
@@ -117,8 +89,10 @@
             <div class="shoping__checkout">
               <h5>Cart Total</h5>
               <ul>
-                <li>Subtotal <span>$454.98</span></li>
-                <li>Total <span>$454.98</span></li>
+                <li>Subtotal <span>$0</span></li>
+                <li>
+                  Total <span>${{ total }}</span>
+                </li>
               </ul>
               <router-link :to="{ name: 'checkout' }" class="primary-btn">
                 PROCEED TO CHECKOUT
@@ -133,12 +107,66 @@
 
 <script>
 import imgBreadcrumb from "../../assets/img/breadcrumb.jpg";
+import { mapActions, mapGetters } from "vuex";
+
 export default {
   name: "Cart",
   data() {
     return {
       imgBreadcrumb: imgBreadcrumb,
+      price: 30,
+      orderID1: null,
+      total: 0,
     };
+  },
+  created() {
+    this.getListCartItem();
+    this.orderID1 = this.orderID;
+  },
+  watch: {
+    listCart1() {
+      this.total = this.listCart1.reduce(
+        (previousValue, currentValue) =>
+          previousValue + currentValue.price * currentValue.quantity,
+        0
+      );
+    },
+    success() {
+      if (this.success) {
+        this.$toaster.success(this.message);
+        this.$store.commit("set", ["message", ""]);
+        this.$store.commit("set", ["success", false]);
+        this.getListCartItem();
+        this.orderID1 = this.orderID;
+      }
+    },
+    error() {
+      if (this.error) {
+        this.$toaster.error(this.message);
+        this.$store.commit("set", ["message", ""]);
+        this.$store.commit("set", ["error", false]);
+      }
+    },
+  },
+  computed: {
+    ...mapGetters([
+      "listCart",
+      "message",
+      "success",
+      "error",
+      "listOrderByID",
+      "orderID",
+      "listCart1",
+    ]),
+  },
+  methods: {
+    ...mapActions({ getListCart: "getListCart" }),
+    ...mapActions({ getListOrderByUserID: "getListOrderByUserID" }),
+    ...mapActions({ getListCartItem: "getListCartItem" }),
+    ...mapActions({ deleteCart: "deleteCart" }),
+    removeCart(id) {
+      this.deleteCart(id);
+    },
   },
 };
 </script>

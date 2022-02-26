@@ -8,10 +8,10 @@
         <div class="row">
           <div class="col-lg-12 text-center">
             <div class="breadcrumb__text">
-              <h2>Vegetable’s Package</h2>
+              <h2>{{ productByID.name }}</h2>
               <div class="breadcrumb__option">
                 <router-link :to="{ name: 'home' }"> Home </router-link>
-                <span>Vegetable’s Package</span>
+                <span>{{ productByID.name }}</span>
               </div>
             </div>
           </div>
@@ -26,37 +26,15 @@
               <div class="product__details__pic__item">
                 <img
                   class="product__details__pic__item--large"
-                  :src="imgProduct"
+                  :src="productByID.photos"
                   alt=""
                 />
               </div>
-              <!-- <div class="product__details__pic__slider owl-carousel">
-                <img
-                  data-imgbigurl="img/product/details/product-details-2.jpg"
-                  src="img/product/details/thumb-1.jpg"
-                  alt=""
-                />
-                <img
-                  data-imgbigurl="img/product/details/product-details-3.jpg"
-                  src="img/product/details/thumb-2.jpg"
-                  alt=""
-                />
-                <img
-                  data-imgbigurl="img/product/details/product-details-5.jpg"
-                  src="img/product/details/thumb-3.jpg"
-                  alt=""
-                />
-                <img
-                  data-imgbigurl="img/product/details/product-details-4.jpg"
-                  src="img/product/details/thumb-4.jpg"
-                  alt=""
-                />
-              </div> -->
             </div>
           </div>
           <div class="col-lg-6 col-md-6">
             <div class="product__details__text">
-              <h3>Vetgetable’s Package</h3>
+              <h3>{{ productByID.name }}</h3>
               <div class="product__details__rating">
                 <b-icon icon="star-fill" aria-hidden="true"></b-icon>
                 <b-icon icon="star-fill" aria-hidden="true"></b-icon>
@@ -65,12 +43,11 @@
                 <b-icon icon="star-half" aria-hidden="true"></b-icon>
                 <span>(18 reviews)</span>
               </div>
-              <div class="product__details__price">$50.00</div>
+              <div class="product__details__price">
+                ${{ productByID.price }}
+              </div>
               <p>
-                Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
-                Vestibulum ac diam sit amet quam vehicula elementum sed sit amet
-                dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet quam
-                vehicula elementum sed sit amet dui. Proin eget tortor risus.
+                {{ productByID.description }}
               </p>
               <div class="product__details__quantity">
                 <div class="quantity">
@@ -89,7 +66,10 @@
                   </div>
                 </div>
               </div>
-              <a href="#" class="primary-btn">ADD TO CARD</a>
+              <!-- <a href="#" class="primary-btn">ADD TO CARD</a> -->
+              <b-button v-on:click="addNewCart()" class="mx-3" variant="success"
+                >ADD TO CARD</b-button
+              >
               <a href="#" class="heart-icon"
                 ><b-icon icon="heart" aria-hidden="true"></b-icon
               ></a>
@@ -121,6 +101,7 @@
 <script>
 import imgBreadcrumb from "../../assets/img/breadcrumb.jpg";
 import imgProduct from "../../assets/img/product/details/product-details-1.jpg";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "ProductDetail",
   data() {
@@ -130,12 +111,46 @@ export default {
       amount: 0,
     };
   },
+  created() {
+    const { params } = this.$route;
+    console.log(params);
+    this.getProductByID(params.id);
+  },
+  watch: {
+    success() {
+      if (this.success) {
+        this.$toaster.success(this.message);
+        this.$store.commit("set", ["message", ""]);
+        this.$store.commit("set", ["success", false]);
+      }
+    },
+    error() {
+      if (this.error) {
+        this.$toaster.error(this.message);
+        this.$store.commit("set", ["message", ""]);
+        this.$store.commit("set", ["error", false]);
+      }
+    },
+  },
+  computed: {
+    ...mapGetters(["productByID", "message", "success", "error"]),
+  },
   methods: {
+    ...mapActions({ getProductByID: "getProductByID" }),
+    ...mapActions({ addToCart: "addToCart" }),
     addAmount() {
       this.amount = this.amount + 1;
     },
     minusAmount() {
       this.amount = this.amount - 1;
+    },
+    addNewCart() {
+      const { params } = this.$route;
+      const formData = {
+        productID: params.id,
+        quantity: this.amount,
+      };
+      this.addToCart(formData);
     },
   },
 };

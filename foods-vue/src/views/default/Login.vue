@@ -139,6 +139,9 @@ export default {
           console.log(dataStore);
           console.log(data.accesses);
           if (data.status === "ACTIVE") {
+            const { userID } = data;
+
+            localStorage.setItem(Constants.USER_ID, userID);
             if (dataStore.length > 0) {
               localStorage.setItem(Constants.ROLE, 2);
               this.$router.push({ name: "DashboardStore" });
