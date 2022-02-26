@@ -211,9 +211,9 @@
             </div>
           </div>
           <div class="col-lg-9 col-md-7">
-            <div class="product__discount">
+            <!-- <div class="product__discount">
               <div class="section-title product__discount__title">
-                <h2>Sale Off</h2>
+                <h2>Recommend For You</h2>
               </div>
               <div>
                 <div class="">
@@ -221,13 +221,14 @@
                     <VueSlickCarousel v-bind="settings2">
                       <div
                         class="product__discount__item"
-                        v-for="item in listProductSlide"
-                        :key="item.id"
+                        v-for="item in listRecommend"
+                        :key="item.productID"
                       >
                         <div
                           class="product__discount__item__pic set-bg"
                           v-bind:style="{
-                            'background-image': 'url(' + item.img + ')',
+                            'background-image':
+                              'url(' + item.product.photos + ')',
                           }"
                         >
                           <div class="product__discount__percent">-20%</div>
@@ -259,13 +260,12 @@
                           </ul>
                         </div>
                         <div class="product__discount__item__text">
-                          <span>{{ item.category }}</span>
                           <h5>
-                            <a href="#">{{ item.name }}</a>
+                            <a href="#">{{ item.product.name }}</a>
                           </h5>
                           <div class="product__item__price">
-                            ${{ item.price }}
-                            <span>${{ item.priceBefore }}</span>
+                            ${{ item.product.price }}
+                            <span>${{ item.product.minPrice }}</span>
                           </div>
                         </div>
                       </div>
@@ -273,22 +273,28 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
             <div class="filter__item"></div>
+            <div class="section-title product__discount__title">
+              <h2>Recommend For You</h2>
+            </div>
             <div class="row">
               <div
                 class="col-lg-4 col-md-6 col-sm-6"
-                v-for="item in listProduct"
-                :key="item.id"
+                v-for="item in listRecommend"
+                :key="item.product.productID"
               >
                 <div class="product__item">
                   <router-link
-                    :to="{ name: 'product detail', params: { id: item.id } }"
+                    :to="{
+                      name: 'product detail',
+                      params: { id: item.product.productID },
+                    }"
                   >
                     <div
                       class="product__item__pic set-bg"
                       v-bind:style="{
-                        'background-image': 'url(' + item.img + ')',
+                        'background-image': 'url(' + item.product.photos + ')',
                       }"
                     >
                       <ul class="product__item__pic__hover">
@@ -320,15 +326,15 @@
                     </div>
                     <div class="product__item__text">
                       <h6>
-                        <a href="#">{{ item.name }}</a>
+                        <a href="#">{{ item.product.name }}</a>
                       </h6>
-                      <h5>${{ item.price }}</h5>
+                      <h5>${{ item.product.price }}</h5>
                     </div>
                   </router-link>
                 </div>
               </div>
             </div>
-            <div class="product__pagination">
+            <!-- <div class="product__pagination">
               <a href="#">1</a>
               <a href="#">2</a>
               <a href="#">3</a>
@@ -337,7 +343,7 @@
                   class="sidebar-icon"
                   :icon="['fas', 'arrow-right']"
               /></a>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -509,9 +515,11 @@ export default {
   },
   created() {
     this.getListCategory();
+    this.getProductRecommend();
+    console.log(this.listCategory);
   },
   computed: {
-    ...mapGetters(["listCategory", "message", "error"]),
+    ...mapGetters(["listCategory", "message", "error", "listRecommend"]),
   },
   watch: {
     success() {
@@ -534,6 +542,7 @@ export default {
   },
   methods: {
     ...mapActions({ getListCategory: "getListCategory" }),
+    ...mapActions({ getProductRecommend: "getProductRecommend" }),
   },
 };
 </script>

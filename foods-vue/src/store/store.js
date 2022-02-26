@@ -39,6 +39,7 @@ export default new Vuex.Store({
     listOrderByID: [],
     orderID: "",
     listCart1: [],
+    listRecommend: [],
   },
   getters: {
     success: (state) => state.success,
@@ -54,6 +55,7 @@ export default new Vuex.Store({
     listOrderByID: (state) => state.listOrderByID,
     orderID: (state) => state.orderID,
     listCart1: (state) => state.listCart1,
+    listRecommend: (state) => state.listRecommend,
   },
   mutations: {
     set(state, [variable, value]) {
@@ -307,11 +309,25 @@ export default new Vuex.Store({
           console.log(error);
         });
     },
+    getProductRecommend({ commit }) {
+      Api.requestServer1
+        .get(`products/recommendation`)
+        .then((response) => {
+          const { data } = response;
+          commit("set", ["listRecommend", data]);
+          console.log(data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
     addToCart({ commit }, formData) {
       Api.requestServer1
         .post(`${Urls.ORDERS_PRODUCT}`, formData)
         .then((response) => {
           const { status } = response;
+          // eslint-disable-next-line no-debugger
+          debugger;
           if (status == 201) {
             commit("set", ["message", "Add Success"]);
             commit("set", ["success", true]);
@@ -336,6 +352,40 @@ export default new Vuex.Store({
             commit("set", ["success", true]);
           } else {
             commit("set", ["message", "Đặt hàng không thành công"]);
+            commit("set", ["error", true]);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    deleteCart({ commit }, id) {
+      Api.requestServer1
+        .delete(`/${Urls.ORDERS_PRODUCT}/${id}`)
+        .then((response) => {
+          const { status } = response;
+          if (status == 200) {
+            commit("set", ["message", "Success"]);
+            commit("set", ["success", true]);
+          } else {
+            commit("set", ["message", "Erroe"]);
+            commit("set", ["error", true]);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+    deleteOrder({ commit }, id) {
+      Api.requestServer1
+        .delete(`/${Urls.ORDERS}/${id}`)
+        .then((response) => {
+          const { status } = response;
+          if (status == 200) {
+            commit("set", ["message", "Success"]);
+            commit("set", ["success", true]);
+          } else {
+            commit("set", ["message", "Erroe"]);
             commit("set", ["error", true]);
           }
         })

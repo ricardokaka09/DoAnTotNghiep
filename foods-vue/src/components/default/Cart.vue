@@ -36,8 +36,14 @@
                 <tbody>
                   <tr v-for="(item, index) in listCart1" :key="index">
                     <td class="shoping__cart__item">
-                      <img src="img/cart/cart-1.jpg" alt="" />
-                      <h5>{{ item.name }}</h5>
+                      <!-- <img src="img/cart/cart-1.jpg" alt="" /> -->
+                      <h5 class="w-50">{{ item.name }}</h5>
+                      <b-button
+                        class="mx-4"
+                        variant="warning"
+                        v-on:click="removeCart(item.orderProductID)"
+                        >Remove</b-button
+                      >
                     </td>
                     <td class="shoping__cart__price">${{ item.price }}</td>
                     <td class="shoping__cart__quantity">
@@ -125,6 +131,22 @@ export default {
         0
       );
     },
+    success() {
+      if (this.success) {
+        this.$toaster.success(this.message);
+        this.$store.commit("set", ["message", ""]);
+        this.$store.commit("set", ["success", false]);
+        this.getListCartItem();
+        this.orderID1 = this.orderID;
+      }
+    },
+    error() {
+      if (this.error) {
+        this.$toaster.error(this.message);
+        this.$store.commit("set", ["message", ""]);
+        this.$store.commit("set", ["error", false]);
+      }
+    },
   },
   computed: {
     ...mapGetters([
@@ -141,6 +163,10 @@ export default {
     ...mapActions({ getListCart: "getListCart" }),
     ...mapActions({ getListOrderByUserID: "getListOrderByUserID" }),
     ...mapActions({ getListCartItem: "getListCartItem" }),
+    ...mapActions({ deleteCart: "deleteCart" }),
+    removeCart(id) {
+      this.deleteCart(id);
+    },
   },
 };
 </script>

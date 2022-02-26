@@ -134,6 +134,7 @@ export default {
         this.$toaster.success(this.message);
         this.$store.commit("set", ["message", ""]);
         this.$store.commit("set", ["success", false]);
+        this.$router.push({ name: "home" });
       }
     },
     error() {
@@ -160,6 +161,7 @@ export default {
     ...mapActions({ getListOrderByUserID: "getListOrderByUserID" }),
     ...mapActions({ getListCartItem: "getListCartItem" }),
     ...mapActions({ createCheckout: "createCheckout" }),
+    ...mapActions({ deleteOrder: "deleteOrder" }),
     createNewCheckout() {
       // eslint-disable-next-line no-debugger
       debugger;
@@ -177,6 +179,7 @@ export default {
         status: "CUSTOMER_CANCELED",
       };
       this.createCheckout(formData);
+      this.deleteOrder(formData.orderID);
     },
   },
 };

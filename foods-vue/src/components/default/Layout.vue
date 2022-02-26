@@ -26,8 +26,6 @@ export default {
         this.$router.push({ name: "DashboardStore" });
       } else if (parseInt(role) === 0) {
         this.$router.push({ name: "dashboard admin" });
-      } else if (parseInt(role) === 3) {
-        this.$router.push({ name: "home" });
       }
     }
   },

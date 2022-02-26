@@ -6,15 +6,6 @@
           <div class="section-title">
             <h2>Featured Product</h2>
           </div>
-          <div class="featured__controls">
-            <ul>
-              <li class="active" data-filter="" :selected="true">All</li>
-              <li data-filter=".oranges" v-on:click="changeTab()">Oranges</li>
-              <li data-filter=".fresh-meat">Fresh Meat</li>
-              <li data-filter=".vegetables">Vegetables</li>
-              <li data-filter=".fastfood">Fastfood</li>
-            </ul>
-          </div>
         </div>
       </div>
       <div class="row featured__filter">
@@ -46,12 +37,15 @@
                   </router-link>
                 </li>
                 <li>
-                  <router-link :to="{ name: '#' }">
+                  <button
+                    class="button-common-add"
+                    v-on:click="addCart(item.productID)"
+                  >
                     <font-awesome-icon
                       class="sidebar-icon"
                       :icon="['fas', 'shopping-cart']"
                     />
-                  </router-link>
+                  </button>
                 </li>
               </ul>
             </div>
@@ -75,7 +69,6 @@
 </template>
 
 <script>
-import $ from "jquery";
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "FeatureProduct",
@@ -86,16 +79,56 @@ export default {
     this.getListProduct();
   },
   computed: {
-    ...mapGetters(["listProduct", "message", "success", "error"]),
+    ...mapGetters([
+      "listProduct",
+      "message",
+      "success",
+      "error",
+      "productByID",
+    ]),
+  },
+  watch: {
+    success() {
+      if (this.success) {
+        this.$toaster.success(this.message);
+        this.$store.commit("set", ["message", ""]);
+        this.$store.commit("set", ["success", false]);
+      }
+    },
+    error() {
+      if (this.error) {
+        this.$toaster.error(this.message);
+        this.$store.commit("set", ["message", ""]);
+        this.$store.commit("set", ["error", false]);
+      }
+    },
   },
   methods: {
+    ...mapActions({ getProductByID: "getProductByID" }),
+    ...mapActions({ addToCart: "addToCart" }),
     ...mapActions({ getListProduct: "getListProduct" }),
-    changeTab() {
-      $(".featured__controls li").on("click", function () {
-        $(".featured__controls li").removeClass("active");
-        $(this).addClass("active");
-      });
+    addCart(id) {
+      // eslint-disable-next-line no-debugger
+      debugger;
+      const formData = { productID: id, quantity: 1 };
+      this.addToCart(formData);
     },
   },
 };
 </script>
+<style lang="scss" scoped>
+.button-common-add {
+  font-size: 16px;
+  color: #1c1c1c;
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  text-align: center;
+  border: 1px solid #ebebeb;
+  background: #ffffff;
+  display: block;
+  border-radius: 50%;
+  transition: all, 0.5s;
+  cursor: pointer;
+}
+</style>
