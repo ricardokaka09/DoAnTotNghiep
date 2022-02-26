@@ -22,31 +22,7 @@ export interface ValidateAccessToList<T> {
   data: T[];
   credentials: Credentials;
 }
-interface ValidateFirstGroup<T> {
-  data: T;
-  firstGroupIDs: string[];
-  hasFirstGroupScopes: boolean;
-}
-interface ValidateSecondGroup<T> {
-  data: T;
-  secondGroupIDs: string[];
-  hasSecondGroupScopes: boolean;
-}
-interface ValidateThirdGroup<T> {
-  data: T;
-  thirdGroupIDs: string[];
-  hasThirdGroupScopes: boolean;
-}
-interface ValidateFourthGroup<T> {
-  data: T;
-  fourthGroupIDs: string[];
-  hasFourthGroupScopes: boolean;
-}
-interface ValidatePersonal<T> {
-  data: T;
-  userID: string | undefined;
-  hasPersonalScopes: boolean;
-}
+
 export class AccessValidator {
   personalKey: string[];
   firstGroupKey: string[];
@@ -159,30 +135,7 @@ export class AccessValidator {
       ) && hasSecondGroupScopes;
     return isInSecondGroup;
   };
-  validateThirdGroup = ({ data, thirdGroupIDs, hasThirdGroupScopes }) => {
-    const thirdGroupIDsFromData = this.getThirdGroupIDs(data);
-    const isInThirdGroup =
-      (thirdGroupIDsFromData === null || thirdGroupIDsFromData === void 0
-        ? void 0
-        : thirdGroupIDsFromData.some((eachID) =>
-            thirdGroupIDs === null || thirdGroupIDs === void 0
-              ? void 0
-              : thirdGroupIDs.includes(eachID),
-          )) && hasThirdGroupScopes;
-    return isInThirdGroup;
-  };
-  validateFourthGroup = ({ data, fourthGroupIDs, hasFourthGroupScopes }) => {
-    const fourthGroupIDsFromData = this.getFourthGroupIDs(data);
-    const isInFourthGroup =
-      (fourthGroupIDsFromData === null || fourthGroupIDsFromData === void 0
-        ? void 0
-        : fourthGroupIDsFromData.some((eachID) =>
-            fourthGroupIDs === null || fourthGroupIDs === void 0
-              ? void 0
-              : fourthGroupIDs.includes(eachID),
-          )) && hasFourthGroupScopes;
-    return isInFourthGroup;
-  };
+
   validateAccessToSingle = ({ data, credentials }) => {
     if (!data || Array.isArray(data)) {
       return {

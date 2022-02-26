@@ -70,7 +70,7 @@ export class OrderProductsCombinedService {
         this.productsService.updateOne({
           query: { productID },
           credentials,
-          data: { quantity: product.quantity - data.quantity },
+          data: { quantity: product.quantity },
         }),
       ]);
 
@@ -137,13 +137,6 @@ export class OrderProductsCombinedService {
         this.orderProductsService.deleteOne({
           query,
           credentials,
-        }),
-        this.productsService.updateOne({
-          query: { productID: orderProduct.productID },
-          credentials,
-          data: {
-            quantity: product.quantity + orderProduct.quantity,
-          },
         }),
         this.ordersService.updateOne({
           query: { orderID: orderProduct.orderID },

@@ -14,6 +14,7 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiTags } from '@nestjs/swagger';
+import { Scopes } from '../../middlewares/authz/authz.service';
 import {
   CreateOrderProductDto,
   FindManyOrderProductDto,
@@ -33,6 +34,7 @@ export class OrderProductsController {
   ) {}
 
   @Post()
+  @UseGuards(new Scopes([]))
   @UseGuards(AuthGuard('jwt'))
   @UsePipes(new ValidationPipe())
   async createOneOrder(
@@ -53,6 +55,7 @@ export class OrderProductsController {
   }
 
   @Put(':orderProductID')
+  @UseGuards(new Scopes([]))
   @UseGuards(AuthGuard('jwt'))
   @UsePipes(new ValidationPipe())
   async updateQuantity(
@@ -76,6 +79,7 @@ export class OrderProductsController {
   }
 
   @Get(':orderProductID')
+  @UseGuards(new Scopes([]))
   @UseGuards(AuthGuard('jwt'))
   async findOneOrder(
     @Param() { orderProductID },
@@ -94,6 +98,7 @@ export class OrderProductsController {
   }
 
   @Get()
+  @UseGuards(new Scopes([]))
   @UseGuards(AuthGuard('jwt'))
   async findAllOrders(
     @Request() { user },
@@ -111,6 +116,7 @@ export class OrderProductsController {
   }
 
   @Delete(':orderProductID')
+  @UseGuards(new Scopes([]))
   @UseGuards(AuthGuard('jwt'))
   async deleteOneOrder(
     @Param() { orderProductID },

@@ -13,6 +13,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 import { Scopes } from '../../middlewares/authz/authz.service';
 import { CategoriesService } from './categories.service';
 import {
@@ -22,7 +23,7 @@ import {
 } from './models/categories.dto';
 import { Categories } from './models/categories.schema';
 import { FindManyCategoryResult } from './models/categories.interface';
-import { AuthGuard } from '@nestjs/passport';
+import { scopes } from '../../constants/scopes';
 
 @Controller('categories')
 @ApiTags('Categories')
@@ -35,6 +36,7 @@ export class CategoriesController {
     To create a category, you have to provide the name field, and the description field is optional
     `,
   })
+  @UseGuards(new Scopes([scopes.CREATE_CATEGORY]))
   @UseGuards(AuthGuard('jwt'))
   @UsePipes(new ValidationPipe())
   async createOneCategory(
@@ -57,6 +59,7 @@ export class CategoriesController {
     description: `
     To update information of category, by categoryID`,
   })
+  @UseGuards(new Scopes([]))
   @UseGuards(AuthGuard('jwt'))
   @UsePipes(new ValidationPipe())
   async updateOneCategory(

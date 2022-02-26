@@ -9,14 +9,3 @@ export function getCosineSimilarityRowVector(matrix, index) {
     return similarity(matrix[index], matrix[i]);
   });
 }
-
-export function getMovieIndexByTitle(MOVIES_IN_LIST, query) {
-  const index = MOVIES_IN_LIST.map((movie) => movie.title).indexOf(query);
-
-  if (!index) {
-    throw new Error('product not found');
-  }
-
-  const { title, id } = MOVIES_IN_LIST[index];
-  return { index, title, id };
-}

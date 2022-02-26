@@ -11,6 +11,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "start:local": "concurrently --handle-input \"wait-on dist/src/main.js && nodemon\" \"tsc -w -p tsconfig.build.json\" ",
+    "start:local:rs": "nodemon dist/src/main.js --exec babel-node --present es2015,stage-2",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
@@ -42,8 +43,9 @@
     "husky": "^7.0.2",
     "joi": "^17.4.2",
     "jsonwebtoken": "^8.5.1",
-    "mathjs": "^10.0.0",
+    "mathjs": "^3.18.0",
     "mysql2": "^2.3.0",
+    "natural": "^0.5.6",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
@@ -52,7 +54,8 @@
     "rxjs": "^7.2.0",
     "swagger-ui-express": "^4.1.6",
     "typeorm": "^0.2.38",
-    "typescript": "^4.4.3"
+    "typescript": "^4.4.3",
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
@@ -79,7 +82,10 @@
     "ts-node": "^10.0.0",
     "tsconfig-paths": "^3.10.1",
     "typescript": "^4.4.3",
-    "wait-on": "^6.0.0"
+    "wait-on": "^6.0.0",
+    "babel-cli": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1"
   },
   "jest": {
     "moduleFileExtensions": [
